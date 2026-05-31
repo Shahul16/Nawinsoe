@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" role="img" aria-label="Nawins Education logo">
+  <defs>
+    <linearGradient id="gold" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#d6ad5a"/>
+      <stop offset="1" stop-color="#b7852f"/>
+    </linearGradient>
+    <linearGradient id="navy" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#07133a"/>
+      <stop offset="1" stop-color="#213a5b"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.18" />
+    </filter>
+  </defs>
+
+  <!-- Cap -->
+  <g transform="translate(60,60)">
+    <path d="M240 20 L520 140 L240 260 L-40 140 Z" fill="url(#navy)" rx="6" filter="url(#soft)" />
+    <!-- Arrow -->
+    <path d="M140 220 L360 40 L410 90 L190 270 Z" fill="url(#gold)" stroke="#b07e2b" stroke-width="2" />
+    <!-- Ribbon forming N -->
+    <path d="M40 320 L120 100 L180 140 L260 20 L320 80 L260 320 L200 280 L120 380 Z" fill="url(#navy)" opacity="0.98" />
+  </g>
+
+  <!-- Wordmark -->
+  <g transform="translate(80,420)">
+    <text x="0" y="0" font-family="Montserrat, Sans-serif" font-size="72" letter-spacing="6" fill="#07133a" font-weight="700">NAWINS</text>
+    <text x="0" y="60" font-family="Open Sans, Sans-serif" font-size="22" letter-spacing="6" fill="#b7852f">EDUCATION</text>
+  </g>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Nawins favicon">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#d6ad5a"/>
+      <stop offset="1" stop-color="#b7852f"/>
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="#07133a" rx="20"/>
+  <path d="M18 64 L64 30 L110 64 L64 98 Z" fill="url(#g)" />
+</svg>
