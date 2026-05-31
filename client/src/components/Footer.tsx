@@ -10,14 +10,14 @@ export default function Footer() {
     Company: [
       { id: "about-us", label: "About Us", href: "/about" },
       { id: "services", label: "Services", href: "/services" },
+      { id: "destinations", label: "Destinations", href: "/destinations" },
       { id: "universities", label: "Universities", href: "/universities" },
-      { id: "tasks", label: "Tasks", href: "/tasks" },
       { id: "contact", label: "Contact", href: "/contact" },
     ],
     Resources: [
+      { id: "success-stories", label: "Success Stories", href: "/success-stories" },
       { id: "blogs", label: "Blogs", href: "/blogs" },
       { id: "gallery", label: "Gallery", href: "/gallery" },
-      { id: "faqs", label: "FAQs", href: "#" },
       { id: "testimonials", label: "Testimonials", href: "#" },
     ],
     Legal: [

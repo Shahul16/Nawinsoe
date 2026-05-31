@@ -15,6 +15,8 @@ import React, { Suspense } from "react";
 
 const Universities = React.lazy(() => import("./pages/Universities"));
 const Gallery = React.lazy(() => import("./pages/Gallery"));
+const Destinations = React.lazy(() => import("./pages/Destinations"));
+const SuccessStories = React.lazy(() => import("./pages/SuccessStories"));
 
 function Router() {
   return (
@@ -23,6 +25,8 @@ function Router() {
         <Route path={"/"} component={Home} />
         <Route path={"/about"} component={About} />
         <Route path={"/services"} component={Services} />
+        <Route path={"/destinations"} component={Destinations} />
+        <Route path={"/success-stories"} component={SuccessStories} />
         <Route path={"/universities"} component={Universities} />
         <Route path={"/blogs"} component={Blogs} />
         <Route path={"/gallery"} component={Gallery} />

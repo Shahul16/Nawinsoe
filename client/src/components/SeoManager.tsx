@@ -21,18 +21,23 @@ const META_BY_PATH: Record<string, { title: string; description: string }> = {
     description:
       "Free counseling, university selection, IELTS/TOEFL coaching, and application plus visa support for UK studies.",
   },
+  "/destinations": {
+    title: "Study Abroad Destinations | Nawins",
+    description:
+      "Explore UK, Canada, Australia, Ireland, and Europe. Compare universities, costs, and career opportunities.",
+  },
+  "/success-stories": {
+    title: "Student Success Stories | Nawins",
+    description:
+      "Read inspiring stories of 1200+ students who achieved their dreams with Nawins counseling and guidance.",
+  },
   "/universities": {
     title: "Top UK Universities | Nawins",
     description:
       "Browse leading UK universities, popular programs, and find the right admission pathway.",
   },
-  "/tasks": {
-    title: "Application Tasks & Reminders | Nawins",
-    description:
-      "Manage counseling and admission tasks with completion tracking and optional browser notifications.",
-  },
   "/blogs": {
-    title: "Study Abroad Blogs | Nawins",
+    title: "Study Abroad Blog | Nawins",
     description:
       "Read practical guides and stories about UK admissions, visa strategy, courses, and student life.",
   },
@@ -45,6 +50,11 @@ const META_BY_PATH: Record<string, { title: string; description: string }> = {
     title: "Contact Nawins Overseas Education",
     description:
       "Talk to our counselors for UK admissions, course planning, and visa guidance.",
+  },
+  "/tasks": {
+    title: "Application Tasks & Reminders | Nawins",
+    description:
+      "Manage counseling and admission tasks with completion tracking and optional browser notifications.",
   },
 };
 
@@ -123,7 +133,80 @@ function setStructuredData(path: string) {
     },
   };
 
-  const payload = [orgSchema, websiteSchema, pageSchema];
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: (() => {
+      const breadcrumbs = [];
+      breadcrumbs.push({
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: BASE_URL,
+      });
+
+      const pathMap: Record<string, string> = {
+        "/about": "About",
+        "/services": "Services",
+        "/destinations": "Destinations",
+        "/success-stories": "Success Stories",
+        "/universities": "Universities",
+        "/blogs": "Blog",
+        "/gallery": "Gallery",
+        "/contact": "Contact",
+      };
+
+      if (pathMap[path]) {
+        breadcrumbs.push({
+          "@type": "ListItem",
+          position: breadcrumbs.length + 1,
+          name: pathMap[path],
+          item: `${BASE_URL}${path}`,
+        });
+      }
+
+      return breadcrumbs;
+    })(),
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What services does Nawins provide?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Nawins provides free counseling, university selection, test preparation, application assistance, and visa support for studying abroad.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Which countries does Nawins help students study in?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Nawins helps students with admissions to UK, Canada, Australia, Ireland, and European universities.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What is the success rate of Nawins?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Nawins has helped 1200+ students get admitted to leading universities with a 95% visa success rate.",
+        },
+      },
+    ],
+  };
+
+  const payload = [orgSchema, websiteSchema, pageSchema, breadcrumbSchema];
+
+  // Add FAQ schema only to specific pages
+  if (["/" ].includes(path)) {
+    payload.push(faqSchema);
+  }
+
   let script = document.getElementById("seo-jsonld");
   if (!script) {
     script = document.createElement("script");

@@ -4,9 +4,11 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
+import { trackLeadCapture, trackUtmParams } from "@/lib/crm";
+import { trackEvent } from "@/lib/analytics";
 
 export default function Contact() {
   const createInquiry = trpc.inquiries.create.useMutation();
@@ -17,6 +19,12 @@ export default function Contact() {
     subject: "",
     message: "",
   });
+
+  useEffect(() => {
+    // Track UTM parameters on page load
+    trackUtmParams();
+    trackEvent("contact_page_view");
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -33,6 +41,15 @@ export default function Contact() {
         preferredCourse: formData.subject || "Contact Inquiry",
         message: formData.message,
       });
+
+      // Track lead capture
+      trackLeadCapture({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        preferredCourse: formData.subject,
+      });
+
       toast.success("Message submitted successfully.", {
         description: "Our team will contact you within 24 hours.",
       });
@@ -133,59 +150,84 @@ export default function Contact() {
             <Card className="glass-surface rounded-3xl border-0 p-8">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Input
-                    type="text"
-                    name="name"
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="border-blue-100 bg-white/85"
-                  />
-                  <Input
-                    type="email"
-                    name="email"
-                    placeholder="Your Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="border-blue-100 bg-white/85"
-                  />
+                  <div>
+                    <label htmlFor="name" className="sr-only">Your Name</label>
+                    <Input
+                      id="name"
+                      type="text"
+                      name="name"
+                      placeholder="Your Name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      aria-required="true"
+                      className="border-blue-100 bg-white/85"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="sr-only">Your Email</label>
+                    <Input
+                      id="email"
+                      type="email"
+                      name="email"
+                      placeholder="Your Email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      aria-required="true"
+                      className="border-blue-100 bg-white/85"
+                    />
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Input
-                    type="tel"
-                    name="phone"
-                    placeholder="Phone Number"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="border-blue-100 bg-white/85"
-                  />
-                  <Input
-                    type="text"
-                    name="subject"
-                    placeholder="Subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    className="border-blue-100 bg-white/85"
-                  />
+                  <div>
+                    <label htmlFor="phone" className="sr-only">Phone Number</label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      name="phone"
+                      placeholder="Phone Number"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="border-blue-100 bg-white/85"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="subject" className="sr-only">Subject</label>
+                    <Input
+                      id="subject"
+                      type="text"
+                      name="subject"
+                      placeholder="Subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      required
+                      aria-required="true"
+                      className="border-blue-100 bg-white/85"
+                    />
+                  </div>
                 </div>
 
-                <textarea
-                  name="message"
-                  placeholder="Your Message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={6}
-                  className="w-full rounded-lg border border-blue-100 bg-white/85 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+                <div>
+                  <label htmlFor="message" className="sr-only">Your Message</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    placeholder="Your Message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    aria-required="true"
+                    rows={6}
+                    className="w-full rounded-lg border border-blue-100 bg-white/85 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
 
                 <Button
                   type="submit"
                   disabled={createInquiry.isPending}
+                  aria-busy={createInquiry.isPending}
                   className="w-full rounded-full bg-gradient-to-r from-[#17337d] to-[#2854c8] py-3 font-semibold text-white hover:from-[#20449f] hover:to-[#2f61df]"
                 >
                   {createInquiry.isPending ? "Sending..." : "Send Message"}
