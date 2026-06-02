@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "wouter";
 
-const SITE_NAME = "NAWINS Edutech";
+const SITE_NAME = "Nawins Education";
 const BASE_URL = 
   typeof window !== "undefined" && window.location.hostname === "localhost"
     ? `${window.location.protocol}//${window.location.host}`
@@ -12,54 +12,104 @@ type SchemaPayload = Record<string, any>;
 
 const META_BY_PATH: Record<string, { title: string; description: string }> = {
   "/": {
-    title: "Study in UK. Simplified | NAWINS Edutech",
+    title: "Study in UK. Simplified | Nawins Education",
     description:
       "Explore UK universities, courses, counseling, and visa guidance with NAWINS Edutech.",
   },
   "/about": {
-    title: "About NAWINS Edutech",
+    title: "About Nawins Education",
     description:
-      "Learn how NAWINS Edutech supports students with honest guidance, quality-first counseling, and global education pathways.",
+      "Learn how Nawins Education supports students with honest guidance, quality-first counseling, and global education pathways.",
   },
   "/services": {
-    title: "Study Abroad Services | NAWINS Edutech",
+    title: "Study Abroad Services | Nawins Education",
     description:
       "Free counseling, university selection, IELTS/TOEFL coaching, and application plus visa support for UK studies.",
   },
   "/destinations": {
-    title: "Study Abroad Destinations | NAWINS Edutech",
+    title: "Study Abroad Destinations | Nawins Education",
     description:
       "Explore UK, Canada, Australia, Ireland, and Europe. Compare universities, costs, and career opportunities.",
   },
   "/success-stories": {
-    title: "Student Success Stories | NAWINS Edutech",
+    title: "Student Success Stories | Nawins Education",
     description:
-      "Read inspiring stories of 1200+ students who achieved their dreams with NAWINS Edutech counseling and guidance.",
+      "Read inspiring stories of 1200+ students who achieved their dreams with Nawins Education counseling and guidance.",
   },
   "/universities": {
-    title: "Top UK Universities | NAWINS Edutech",
+    title: "Top UK Universities | Nawins Education",
     description:
       "Browse leading UK universities, popular programs, and find the right admission pathway.",
   },
   "/blogs": {
-    title: "Study Abroad Blog | NAWINS Edutech",
+    title: "Study Abroad Blog | Nawins Education",
     description:
       "Read practical guides and stories about UK admissions, visa strategy, courses, and student life.",
   },
   "/gallery": {
-    title: "Student Gallery | NAWINS Edutech",
+    title: "Student Gallery | Nawins Education",
     description:
-      "See campus moments, events, and student journey highlights from the NAWINS Edutech community.",
+      "See campus moments, events, and student journey highlights from the Nawins Education community.",
   },
   "/contact": {
-    title: "Contact NAWINS Edutech",
+    title: "Contact Nawins Education",
     description:
       "Talk to our counselors for UK admissions, course planning, and visa guidance.",
   },
   "/tasks": {
-    title: "Application Tasks & Reminders | NAWINS Edutech",
+    title: "Application Tasks & Reminders | Nawins Education",
     description:
       "Manage counseling and admission tasks with completion tracking and optional browser notifications.",
+  },
+  "/study-in-uk": {
+    title: "Study in UK | Nawins Education",
+    description:
+      "Explore UK education opportunities with guidance for top universities, courses, and visa applications.",
+  },
+  "/study-in-canada": {
+    title: "Study in Canada | Nawins Education",
+    description:
+      "Discover Canadian education pathways with affordable tuition, work opportunities, and PR routes.",
+  },
+  "/study-in-australia": {
+    title: "Study in Australia | Nawins Education",
+    description:
+      "Experience world-class education in Australia with excellent lifestyle and career prospects.",
+  },
+  "/study-in-ireland": {
+    title: "Study in Ireland | Nawins Education",
+    description:
+      "Study in Ireland's innovation hub with EU access and thriving tech ecosystem.",
+  },
+  "/study-in-germany": {
+    title: "Study in Germany | Nawins Education",
+    description:
+      "Experience world-class education in Europe's largest economy with no tuition fees at public universities.",
+  },
+  "/study-in-france": {
+    title: "Study in France | Nawins Education",
+    description:
+      "Experience world-class education in the land of art, culture, and innovation with English-taught programs.",
+  },
+  "/study-in-netherlands": {
+    title: "Study in Netherlands | Nawins Education",
+    description:
+      "Experience innovative education in Europe with English-taught programs and excellent career opportunities.",
+  },
+  "/study-in-new-zealand": {
+    title: "Study in New Zealand | Nawins Education",
+    description:
+      "Study in one of the world's most beautiful and safest countries with quality education and PR pathways.",
+  },
+  "/careers": {
+    title: "Careers at Nawins Education",
+    description:
+      "Join our team of education experts and help shape the futures of aspiring students studying abroad.",
+  },
+  "/book-consultation": {
+    title: "Book Free Consultation | Nawins Education",
+    description:
+      "Schedule your free study abroad consultation with expert counselors for personalized guidance.",
   },
 };
 
@@ -129,7 +179,7 @@ function setStructuredData(path: string) {
   const pageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: META_BY_PATH[path]?.title ?? "NAWINS Edutech Page",
+    name: META_BY_PATH[path]?.title ?? "Nawins Education Page",
     url: `${BASE_URL}${path}`,
     isPartOf: {
       "@type": "WebSite",
@@ -159,12 +209,42 @@ function setStructuredData(path: string) {
         "/blogs": "Blog",
         "/gallery": "Gallery",
         "/contact": "Contact",
+        "/careers": "Careers",
+        "/book-consultation": "Book Consultation",
+        "/study-in-uk": "Study in UK",
+        "/study-in-canada": "Study in Canada",
+        "/study-in-australia": "Study in Australia",
+        "/study-in-ireland": "Study in Ireland",
+        "/study-in-germany": "Study in Germany",
+        "/study-in-france": "Study in France",
+        "/study-in-netherlands": "Study in Netherlands",
+        "/study-in-new-zealand": "Study in New Zealand",
       };
+
+      const pathParents: Record<string, string> = {
+        "/study-in-uk": "/destinations",
+        "/study-in-canada": "/destinations",
+        "/study-in-australia": "/destinations",
+        "/study-in-ireland": "/destinations",
+        "/study-in-germany": "/destinations",
+        "/study-in-france": "/destinations",
+        "/study-in-netherlands": "/destinations",
+        "/study-in-new-zealand": "/destinations",
+      };
+
+      if (pathParents[path] && pathMap[pathParents[path] as keyof typeof pathMap]) {
+        breadcrumbs.push({
+          "@type": "ListItem",
+          position: 2,
+          name: pathMap[pathParents[path] as keyof typeof pathMap]!,
+          item: `${BASE_URL}${pathParents[path]}`,
+        });
+      }
 
       if (pathMap[path]) {
         breadcrumbs.push({
           "@type": "ListItem",
-          position: breadcrumbs.length + 1,
+          position: pathParents[path] ? 3 : 2,
           name: pathMap[path],
           item: `${BASE_URL}${path}`,
         });
@@ -180,26 +260,26 @@ function setStructuredData(path: string) {
     mainEntity: [
       {
         "@type": "Question",
-        name: "What services does NAWINS Edutech provide?",
+        name: "What services does Nawins Education provide?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "NAWINS Edutech provides free counseling, university selection, test preparation, application assistance, and visa support for studying abroad.",
+          text: "Nawins Education provides free counseling, university selection, test preparation, application assistance, and visa support for studying abroad.",
         },
       },
       {
         "@type": "Question",
-        name: "Which countries does NAWINS Edutech help students study in?",
+        name: "Which countries does Nawins Education help students study in?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "NAWINS Edutech helps students with admissions to UK, Canada, Australia, Ireland, and European universities.",
+          text: "Nawins Education helps students with admissions to UK, Canada, Australia, Ireland, and European universities.",
         },
       },
       {
         "@type": "Question",
-        name: "What is the success rate of NAWINS Edutech?",
+        name: "What is the success rate of Nawins Education?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "NAWINS Edutech has helped 1200+ students get admitted to leading universities with a 95% visa success rate.",
+          text: "Nawins Education has helped 1200+ students get admitted to leading universities with a 95% visa success rate.",
         },
       },
     ],

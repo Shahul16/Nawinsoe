@@ -1,22 +1,24 @@
 import { COOKIE_NAME } from "@shared/const";
-import { getSessionCookieOptions } from "./_core/cookies";
-import { systemRouter } from "./_core/systemRouter";
-import { publicProcedure, router } from "./_core/trpc";
+import { getSessionCookieOptions } from "../_core/cookies";
+import { systemRouter } from "../_core/systemRouter";
+import { publicProcedure, router } from "../_core/trpc";
 import { z } from "zod";
 import {
   completeTaskById,
   createInquiry,
+  createJobApplication,
   createNewsletterSubscription,
   createTask,
   getCourses,
+  getJobApplications,
   getTasks,
   getTestimonials,
   getUniversities,
   getUniversityById,
   updateTaskStatus,
-} from "./db";
-import { notifyOwner } from "./_core/notification";
-import { sendLeadToCrm } from "./_core/crm";
+} from "../db";
+import { notifyOwner } from "../_core/notification";
+import { sendLeadToCrm } from "../_core/crm";
 
 export const appRouter = router({
   system: systemRouter,
@@ -152,90 +154,149 @@ export const appRouter = router({
     }),
   }),
 
-  tasks: router({
-    list: publicProcedure
-      .input(
-        z
-          .object({
-            status: z.enum(["pending", "in_progress", "completed"]).optional(),
-          })
-          .optional()
-      )
-      .query(async ({ input }) => {
-        return await getTasks(input?.status);
-      }),
+tasks: router({
+     list: publicProcedure
+       .input(
+         z
+           .object({
+             status: z.enum(["pending", "in_progress", "completed"]).optional(),
+           })
+           .optional()
+       )
+       .query(async ({ input }) => {
+         return await getTasks(input?.status);
+       }),
 
-    create: publicProcedure
-      .input(
-        z.object({
-          title: z
-            .string()
-            .min(1, "Task title is required")
-            .max(180, "Task title must be 180 characters or less"),
-          description: z.string().max(1200).optional(),
-        })
-      )
-      .mutation(async ({ input }) => {
-        const task = await createTask({
-          title: input.title,
-          description: input.description,
-          status: "pending",
-        });
+     create: publicProcedure
+       .input(
+         z.object({
+           title: z
+             .string()
+             .min(1, "Task title is required")
+             .max(180, "Task title must be 180 characters or less"),
+           description: z.string().max(1200).optional(),
+         })
+       )
+       .mutation(async ({ input }) => {
+         const task = await createTask({
+           title: input.title,
+           description: input.description,
+           status: "pending",
+         });
 
-        return { success: true, data: task };
-      }),
+         return { success: true, data: task };
+       }),
 
-    complete: publicProcedure
-      .input(
-        z.object({
-          id: z.number().int().positive(),
-        })
-      )
-      .mutation(async ({ input }) => {
-        const task = await completeTaskById(input.id);
-        if (!task) {
-          return { success: false, message: "Task not found" } as const;
-        }
+     complete: publicProcedure
+       .input(
+         z.object({
+           id: z.number().int().positive(),
+         })
+       )
+       .mutation(async ({ input }) => {
+         const task = await completeTaskById(input.id);
+         if (!task) {
+           return { success: false, message: "Task not found" } as const;
+         }
 
-        try {
-          await notifyOwner({
-            title: "Task Completed",
-            content: `Task completed: ${task.title}`,
-          });
-        } catch (notifyError) {
-          console.warn("Failed to notify owner for completed task:", notifyError);
-        }
+         try {
+           await notifyOwner({
+             title: "Task Completed",
+             content: `Task completed: ${task.title}`,
+           });
+         } catch (notifyError) {
+           console.warn("Failed to notify owner for completed task:", notifyError);
+         }
 
-        return { success: true, data: task } as const;
-      }),
+         return { success: true, data: task } as const;
+       }),
 
-    updateStatus: publicProcedure
-      .input(
-        z.object({
-          id: z.number().int().positive(),
-          status: z.enum(["pending", "in_progress", "completed"]),
-        })
-      )
-      .mutation(async ({ input }) => {
-        const task = await updateTaskStatus(input.id, input.status);
-        if (!task) {
-          return { success: false, message: "Task not found" } as const;
-        }
+     updateStatus: publicProcedure
+       .input(
+         z.object({
+           id: z.number().int().positive(),
+           status: z.enum(["pending", "in_progress", "completed"]),
+         })
+       )
+       .mutation(async ({ input }) => {
+         const task = await updateTaskStatus(input.id, input.status);
+         if (!task) {
+           return { success: false, message: "Task not found" } as const;
+         }
 
-        if (input.status === "completed") {
-          try {
-            await notifyOwner({
-              title: "Task Completed",
-              content: `Task completed: ${task.title}`,
-            });
-          } catch (notifyError) {
-            console.warn("Failed to notify owner for completed task:", notifyError);
-          }
-        }
+         if (input.status === "completed") {
+           try {
+             await notifyOwner({
+               title: "Task Completed",
+               content: `Task completed: ${task.title}`,
+             });
+           } catch (notifyError) {
+             console.warn("Failed to notify owner for completed task:", notifyError);
+           }
+         }
 
-        return { success: true, data: task } as const;
-      }),
-  }),
+         return { success: true, data: task } as const;
+       }),
+   }),
+
+   jobApplications: router({
+     create: publicProcedure
+       .input(
+         z.object({
+           fullName: z.string().min(1, "Full name is required"),
+           email: z.string().email("Valid email is required"),
+           phone: z.string().optional(),
+           city: z.string().optional(),
+           experience: z.string().optional(),
+           position: z.string().min(1, "Position is required"),
+           resumeFile: z.string().optional(),
+           coverLetter: z.string().optional(),
+         })
+       )
+       .mutation(async ({ input }) => {
+         try {
+           const result = await createJobApplication({
+             fullName: input.fullName,
+             email: input.email,
+             phone: input.phone,
+             city: input.city,
+             experience: input.experience,
+             position: input.position,
+             resumeFile: input.resumeFile,
+             coverLetter: input.coverLetter,
+           });
+
+           try {
+             await notifyOwner({
+               title: "New Job Application",
+               content: `New application from ${input.fullName} (${input.email}) for ${input.position}`,
+             });
+           } catch (notifyError) {
+             console.warn("Failed to notify owner for job application:", notifyError);
+           }
+
+           return { success: true, data: result } as const;
+         } catch (error) {
+           console.error("Failed to create job application:", error);
+           throw error;
+         }
+       }),
+   }),
+
+   admin: router({
+     jobApplications: publicProcedure
+       .input(
+         z
+           .object({
+             position: z.string().optional(),
+             status: z.enum(["New", "Reviewing", "Interview Scheduled", "Selected", "Rejected"]).optional(),
+           })
+           .optional()
+       )
+       .query(async ({ input }) => {
+         return await getJobApplications(input);
+       }),
+   }),
 });
 
 export type AppRouter = typeof appRouter;

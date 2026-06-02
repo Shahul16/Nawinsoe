@@ -108,6 +108,25 @@ export const newsletterSubscribers = mysqlTable("newsletter_subscribers", {
 export type NewsletterSubscriber = typeof newsletterSubscribers.$inferSelect;
 export type InsertNewsletterSubscriber = typeof newsletterSubscribers.$inferInsert;
 
+export const jobApplications = mysqlTable("job_applications", {
+  id: int("id").autoincrement().primaryKey(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  fullName: varchar("fullName", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull(),
+  phone: varchar("phone", { length: 20 }),
+  city: varchar("city", { length: 255 }),
+  experience: varchar("experience", { length: 100 }),
+  position: varchar("position", { length: 255 }).notNull(),
+  resumeFile: varchar("resumeFile", { length: 500 }),
+  coverLetter: text("coverLetter"),
+  status: mysqlEnum("status", ["New", "Reviewing", "Interview Scheduled", "Selected", "Rejected"])
+    .default("New")
+    .notNull(),
+});
+
+export type JobApplication = typeof jobApplications.$inferSelect;
+export type InsertJobApplication = typeof jobApplications.$inferInsert;
+
 // Relations
 export const universitiesRelations = relations(universities, ({ many }) => ({
   courses: many(courses),

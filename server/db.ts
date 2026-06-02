@@ -7,6 +7,7 @@ import {
   Task,
   courses,
   inquiries,
+  jobApplications,
   newsletterSubscribers,
   tasks,
   testimonials,
@@ -269,5 +270,67 @@ export async function createNewsletterSubscription(data: { email: string; name?:
   } catch (error) {
     console.error("[Database] Failed to create newsletter subscription:", error);
     throw error;
+  }
+}
+
+export async function createJobApplication(data: {
+  fullName: string;
+  email: string;
+  phone?: string | null;
+  city?: string | null;
+  experience?: string | null;
+  position: string;
+  resumeFile?: string | null;
+  coverLetter?: string | null;
+}) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create job application: database not available");
+    return null;
+  }
+  try {
+    const inserted = await db.insert(jobApplications).values({
+      fullName: data.fullName,
+      email: data.email,
+      phone: data.phone,
+      city: data.city,
+      experience: data.experience,
+      position: data.position,
+      resumeFile: data.resumeFile,
+      coverLetter: data.coverLetter,
+    }).$returningId();
+    const appId = inserted[0]?.id;
+    if (!appId) return null;
+    const rows = await db.select().from(jobApplications).where(eq(jobApplications.id, appId)).limit(1);
+    return rows.length > 0 ? rows[0] : null;
+  } catch (error) {
+    console.error("[Database] Failed to create job application:", error);
+    throw error;
+  }
+}
+
+export async function getJobApplications(filters?: { position?: string; status?: string }) {
+  const db = await getDb();
+  if (!db) return [];
+  try {
+    if (filters?.position && filters?.status) {
+      return await db.select().from(jobApplications)
+        .where(eq(jobApplications.position, filters.position))
+        .orderBy(desc(jobApplications.createdAt));
+    }
+    if (filters?.position) {
+      return await db.select().from(jobApplications)
+        .where(eq(jobApplications.position, filters.position))
+        .orderBy(desc(jobApplications.createdAt));
+    }
+    if (filters?.status) {
+      return await db.select().from(jobApplications)
+        .where(eq(jobApplications.status, filters.status as any))
+        .orderBy(desc(jobApplications.createdAt));
+    }
+    return await db.select().from(jobApplications).orderBy(desc(jobApplications.createdAt));
+  } catch (error) {
+    console.error("[Database] Failed to get job applications:", error);
+    return [];
   }
 }
