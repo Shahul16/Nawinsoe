@@ -1,10 +1,11 @@
-# Nawins Education - Premium Study Abroad Consultancy Website
+# Nawins Edutech - Premium Study Abroad Consultancy Platform
 
-Premium international education consultancy website built with React, Vite, Tailwind CSS, tRPC, and Node.js. Fully production-ready with advanced features for student recruitment, lead management, and analytics.
+Enterprise-grade international education technology platform built with React 19, Vite, Tailwind CSS, tRPC, and Node.js. Following ISO 9001/27001 standards for student recruitment and lead management.
 
 ## Brand
 
-- **Company**: Nawins Overseas Education
+- **Company**: Nawins Education Technology
+- **Brand**: Nawins Edutech
 - **Tagline**: Empowering Minds. Building Futures.
 - **Positioning**: Premium international education consultancy and university recruitment partner
 - **Visual Identity**: Deep navy (#07133a), gold (#ffbf47), steel blue, and clean white surfaces
@@ -149,7 +150,7 @@ VITE_META_PIXEL_ID=your-pixel-id
 NODE_ENV=production
 PORT=3000
 VITE_API_URL=https://api.yourdomain.com
-VITE_DOMAIN=https://nawinsukstudyabroad.com
+VITE_DOMAIN=https://www.nawinsedutech.com
 ```
 
 ## Database Schema
@@ -391,4 +392,3 @@ This is a production website. Changes should go through:
 **Version**: 1.0.0  
 **Status**: ✅ Production Ready  
 **Last Updated**: June 1, 2024
-

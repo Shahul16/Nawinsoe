@@ -59,12 +59,14 @@ const footerLinks = {
                 </div>
               </div>
               <div>
-                <p className="font-bold tracking-wide text-white">Nawins</p>
-                <p className="text-xs uppercase tracking-[0.18em] text-blue-200/90">Overseas Education</p>
+                <p className="font-bold tracking-wide text-white">NAWINS Edutech</p>
+                <p className="text-xs uppercase tracking-[0.18em] text-blue-200/90">Overseas Education & Global Career Consultants</p>
               </div>
             </div>
             <p className="text-sm text-blue-100/75">
-              Your one-stop solution to study abroad. Nawins Overseas Education is an Indian study-abroad consultancy offering student counseling, university admissions, test preparation, and visa support for UK, Canada, and Australia.
+              Study in UK. Simplified.
+              <br />
+              Your journey to world-class education starts here.
             </p>
           </div>
 
@@ -93,8 +95,8 @@ const footerLinks = {
             <div className="space-y-3">
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-amber-300" />
-                <a href="mailto:info@nawinsoe.com" className="text-sm text-blue-100/90 hover:text-amber-300">
-                  info@nawinsoe.com
+                <a href="mailto:info@nawinsedutech.com" className="text-sm text-blue-100/90 hover:text-amber-300">
+                  info@nawinsedutech.com
                 </a>
               </div>
               <div className="flex items-center gap-2">
@@ -125,8 +127,8 @@ const footerLinks = {
               </a>
             ))}
           </div>
-            <p className="text-sm text-blue-100/60">
-              © 2026 Nawins Overseas Education. All rights reserved. | Based in Tamil Nadu, India
+            <p className="text-sm text-blue-100/60 text-center md:text-right">
+              © 2026 NAWINS EDUTECH PRIVATE LIMITED. All Rights Reserved. | Based in Tamil Nadu, India
             </p>
         </div>
       </div>

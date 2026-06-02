@@ -25,12 +25,12 @@ export default function Navigation() {
       <div className="container flex items-center justify-between py-3">
         {/* Logo */}
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => setLocation("/")}>
-          <div className="brand-logo" title="Nawins Education">
+          <div className="brand-logo" title="NAWINS Edutech">
             <Logo className="h-12 w-12 object-contain" width={48} height={48} />
           </div>
           <div className="hidden sm:block">
-            <p className="font-bold text-white tracking-wide">Nawins</p>
-            <p className="text-[11px] uppercase tracking-[0.25em] text-white/80">Overseas Education</p>
+            <p className="font-bold text-white tracking-wide">NAWINS Edutech</p>
+            <p className="text-[11px] uppercase tracking-[0.25em] text-white/80">Overseas Education & Global Career Consultants</p>
           </div>
         </div>
 
@@ -56,7 +56,7 @@ export default function Navigation() {
         <div className="flex items-center gap-4">
           <Button
             onClick={() => setLocation("/contact")}
-            className="hidden sm:block rounded-full bg-gradient-to-r from-pink-500 to-purple-600 px-6 text-white hover:from-pink-400 hover:to-purple-500"
+            className="hidden sm:block rounded-full bg-gradient-to-r from-[#C59D50] to-[#B78D42] px-6 text-[#040F23] font-semibold hover:from-[#d4ac62] hover:to-[#c5a150] shadow-lg"
             aria-label="Enroll Now"
             >
               Enroll Now
@@ -104,7 +104,7 @@ export default function Navigation() {
                 setLocation("/contact");
                 setMobileOpen(false);
               }}
-              className="mt-4 w-full rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-white hover:from-pink-400 hover:to-purple-500"
+              className="mt-4 w-full rounded-full bg-gradient-to-r from-[#C59D50] to-[#B78D42] text-[#040F23] font-semibold"
             >
               Enroll Now
             </Button>
