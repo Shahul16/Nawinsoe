@@ -9,6 +9,7 @@ import { useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import { fallbackUniversities } from "@/lib/fallbackData";
 import { toast } from "sonner";
+import CTASection from "@/components/CTASection";
 
 export default function Universities() {
   const [location, setLocation] = useLocation();
@@ -119,6 +120,16 @@ export default function Universities() {
               ))}
             </div>
           )}
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-[#f7f9ff]">
+        <div className="container">
+          <CTASection
+            title="Find Your Perfect University"
+            subtitle="Our counselors will help you shortlist universities that match your profile and aspirations"
+          />
         </div>
       </section>
 

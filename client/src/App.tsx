@@ -11,12 +11,20 @@ import Services from "./pages/Services";
 import Blogs from "./pages/Blogs";
 import Contact from "./pages/Contact";
 import Tasks from "./pages/Tasks";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
+import Cookies from "./pages/Cookies";
+import Faq from "./pages/Faq";
 import React, { Suspense } from "react";
 
 const Universities = React.lazy(() => import("./pages/Universities"));
 const Gallery = React.lazy(() => import("./pages/Gallery"));
 const Destinations = React.lazy(() => import("./pages/Destinations"));
 const SuccessStories = React.lazy(() => import("./pages/SuccessStories"));
+const StudyInUK = React.lazy(() => import("./pages/StudyInUK"));
+const StudyInCanada = React.lazy(() => import("./pages/StudyInCanada"));
+const StudyInAustralia = React.lazy(() => import("./pages/StudyInAustralia"));
+const StudyInIreland = React.lazy(() => import("./pages/StudyInIreland"));
 
 function Router() {
   return (
@@ -32,6 +40,14 @@ function Router() {
         <Route path={"/gallery"} component={Gallery} />
         <Route path={"/contact"} component={Contact} />
         <Route path={"/tasks"} component={Tasks} />
+        <Route path={"/privacy"} component={Privacy} />
+        <Route path={"/terms"} component={Terms} />
+        <Route path={"/cookies"} component={Cookies} />
+        <Route path={"/faq"} component={Faq} />
+        <Route path={"/study-in-uk"} component={StudyInUK} />
+        <Route path={"/study-in-canada"} component={StudyInCanada} />
+        <Route path={"/study-in-australia"} component={StudyInAustralia} />
+        <Route path={"/study-in-ireland"} component={StudyInIreland} />
         <Route path={"/404"} component={NotFound} />
         {/* Final fallback route */}
         <Route component={NotFound} />

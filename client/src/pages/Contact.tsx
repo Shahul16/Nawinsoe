@@ -3,12 +3,13 @@ import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, MessageCircle } from "lucide-react";
 import { useState, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import { trackLeadCapture, trackUtmParams } from "@/lib/crm";
 import { trackEvent } from "@/lib/analytics";
+import CTASection from "@/components/CTASection";
 
 export default function Contact() {
   const createInquiry = trpc.inquiries.create.useMutation();
@@ -142,6 +143,16 @@ export default function Contact() {
               </div>
             </div>
           </Card>
+
+          {/* Quick Contact CTA */}
+          <div className="mb-12 max-w-2xl mx-auto">
+            <CTASection
+              variant="inline"
+              title="Prefer to talk directly?"
+              subtitle="Get instant answers via WhatsApp or phone call"
+              showCalendar={false}
+            />
+          </div>
 
           {/* Contact Form */}
           <div className="max-w-2xl mx-auto">

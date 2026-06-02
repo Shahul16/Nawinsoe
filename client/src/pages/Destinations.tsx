@@ -6,6 +6,7 @@ import { useLocation } from "wouter";
 import { Globe, Users, TrendingUp, Award, BookOpen, DollarSign, Briefcase, MapPin } from "lucide-react";
 import MotionWrapper from "@/components/animations/MotionWrapper";
 import Reveal from "@/components/animations/Reveal";
+import CTASection from "@/components/CTASection";
 
 export default function Destinations() {
   const [, setLocation] = useLocation();
@@ -365,21 +366,13 @@ export default function Destinations() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-[#091f54] to-[#163886]">
-        <MotionWrapper initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }}>
-          <div className="container text-center">
-            <h2 className="text-4xl font-bold text-white mb-4">Unsure Which Destination Is Right for You?</h2>
-            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-              Our expert counselors will help you choose the perfect destination based on your goals, budget, and aspirations.
-            </p>
-            <Button
-              onClick={() => setLocation("/contact")}
-              className="bg-gradient-to-r from-amber-400 to-amber-500 text-[#07173d] hover:from-amber-300 hover:to-amber-400 px-8 py-3 text-lg"
-            >
-              Get Free Counseling
-            </Button>
-          </div>
-        </MotionWrapper>
+      <section className="py-20 bg-[#f7f9ff]">
+        <div className="container">
+          <CTASection
+            title="Unsure Which Destination Is Right for You?"
+            subtitle="Our expert counselors will help you choose the perfect destination based on your goals, budget, and aspirations"
+          />
+        </div>
       </section>
 
       <Footer />

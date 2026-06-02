@@ -7,6 +7,7 @@ import { Award, Target, Briefcase, GraduationCap, CheckCircle2, MapPin } from "l
 import MotionWrapper from "@/components/animations/MotionWrapper";
 import Reveal from "@/components/animations/Reveal";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import CTASection from "@/components/CTASection";
 
 export default function SuccessStories() {
   const [, setLocation] = useLocation();
@@ -328,21 +329,13 @@ export default function SuccessStories() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-[#091f54] to-[#163886]">
-        <MotionWrapper initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }}>
-          <div className="container text-center">
-            <h2 className="text-4xl font-bold text-white mb-4">Ready to Write Your Success Story?</h2>
-            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-              Join thousands of successful students who have transformed their dreams into reality with Nawins counseling.
-            </p>
-            <Button
-              onClick={() => setLocation("/contact")}
-              className="bg-gradient-to-r from-amber-400 to-amber-500 text-[#07173d] hover:from-amber-300 hover:to-amber-400 px-8 py-3 text-lg"
-            >
-              Book Your Free Consultation
-            </Button>
-          </div>
-        </MotionWrapper>
+      <section className="py-20 bg-[#f7f9ff]">
+        <div className="container">
+          <CTASection
+            title="Ready to Write Your Success Story?"
+            subtitle="Join thousands of successful students who have transformed their dreams into reality with Nawins counseling"
+          />
+        </div>
       </section>
 
       <Footer />

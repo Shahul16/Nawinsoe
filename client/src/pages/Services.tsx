@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { MessageSquare, BookOpen, Zap, Briefcase, CheckCircle } from "lucide-react";
+import CTASection from "@/components/CTASection";
 
 export default function Services() {
   const services = [
@@ -110,6 +111,16 @@ export default function Services() {
               </Card>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-white">
+        <div className="container">
+          <CTASection
+            title="Ready to Get Started?"
+            subtitle="Book a free consultation with our expert counselors and take the first step towards your dream university"
+          />
         </div>
       </section>
 

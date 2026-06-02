@@ -6,6 +6,7 @@ import { z } from "zod";
 import {
   completeTaskById,
   createInquiry,
+  createNewsletterSubscription,
   createTask,
   getCourses,
   getTasks,
@@ -107,6 +108,40 @@ export const appRouter = router({
             console.error("CRM/email fallback failed:", fallbackErr);
             throw fallbackErr;
           }
+        }
+      }),
+  }),
+
+  newsletter: router({
+    subscribe: publicProcedure
+      .input(
+        z.object({
+          email: z.string().email("Valid email is required"),
+          name: z.string().optional(),
+          interests: z.string().optional(),
+        })
+      )
+      .mutation(async ({ input }) => {
+        try {
+          const result = await createNewsletterSubscription({
+            email: input.email,
+            name: input.name,
+            interests: input.interests,
+          });
+
+          try {
+            await notifyOwner({
+              title: "New Newsletter Subscription",
+              content: `New subscription from ${input.email}${input.name ? ` (${input.name})` : ""}`,
+            });
+          } catch (notifyError) {
+            console.warn("Failed to notify owner for newsletter subscription:", notifyError);
+          }
+
+          return { success: true, data: result };
+        } catch (error) {
+          console.error("Failed to create newsletter subscription:", error);
+          throw error;
         }
       }),
   }),

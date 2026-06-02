@@ -7,6 +7,7 @@ import {
   Task,
   courses,
   inquiries,
+  newsletterSubscribers,
   tasks,
   testimonials,
   universities,
@@ -252,6 +253,21 @@ export async function updateTaskStatus(
     return rows.length > 0 ? rows[0] : null;
   } catch (error) {
     console.error("[Database] Failed to update task status:", error);
+    throw error;
+  }
+}
+
+export async function createNewsletterSubscription(data: { email: string; name?: string | null; interests?: string | null }) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create newsletter subscription: database not available");
+    return null;
+  }
+  try {
+    const result = await db.insert(newsletterSubscribers).values(data);
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to create newsletter subscription:", error);
     throw error;
   }
 }

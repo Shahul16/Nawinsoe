@@ -18,6 +18,7 @@ import ContactFormPremium from "@/components/premium/ContactFormPremium";
 import Logo from "@/components/Logo";
 import { toast } from "sonner";
 import { fallbackTestimonials, fallbackUniversities } from "@/lib/fallbackData";
+import CTASection from "@/components/CTASection";
 
 export default function Home() {
   const [, setLocation] = useLocation();
@@ -200,8 +201,17 @@ export default function Home() {
       <Reveal delay={0.32}><TestimonialsPremium /></Reveal>
       <Reveal delay={0.36}><ContactFormPremium /></Reveal>
 
-    </MotionWrapper>
+      {/* CTA Section */}
+      <section className="py-20 bg-[#f7f9ff]">
+        <div className="container">
+          <CTASection
+            title="Ready to Start Your Study Abroad Journey?"
+            subtitle="Get expert guidance from our counselors and turn your dreams into reality"
+          />
+        </div>
+      </section>
 
+    </MotionWrapper>
       <Footer />
     </div>
   );

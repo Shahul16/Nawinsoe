@@ -6,26 +6,26 @@ import Logo from "./Logo";
 export default function Footer() {
   const [, setLocation] = useLocation();
 
-  const footerLinks = {
-    Company: [
-      { id: "about-us", label: "About Us", href: "/about" },
-      { id: "services", label: "Services", href: "/services" },
-      { id: "destinations", label: "Destinations", href: "/destinations" },
-      { id: "universities", label: "Universities", href: "/universities" },
-      { id: "contact", label: "Contact", href: "/contact" },
-    ],
-    Resources: [
-      { id: "success-stories", label: "Success Stories", href: "/success-stories" },
-      { id: "blogs", label: "Blogs", href: "/blogs" },
-      { id: "gallery", label: "Gallery", href: "/gallery" },
-      { id: "testimonials", label: "Testimonials", href: "#" },
-    ],
-    Legal: [
-      { id: "privacy", label: "Privacy Policy", href: "#" },
-      { id: "terms", label: "Terms of Service", href: "#" },
-      { id: "cookies", label: "Cookie Policy", href: "#" },
-    ],
-  };
+const footerLinks = {
+  Company: [
+    { id: "about-us", label: "About Us", href: "/about" },
+    { id: "services", label: "Services", href: "/services" },
+    { id: "destinations", label: "Destinations", href: "/destinations" },
+    { id: "universities", label: "Universities", href: "/universities" },
+    { id: "contact", label: "Contact", href: "/contact" },
+  ],
+  Resources: [
+    { id: "success-stories", label: "Success Stories", href: "/success-stories" },
+    { id: "blogs", label: "Blogs", href: "/blogs" },
+    { id: "gallery", label: "Gallery", href: "/gallery" },
+    { id: "faq", label: "FAQ", href: "/faq" },
+  ],
+  Legal: [
+    { id: "privacy", label: "Privacy Policy", href: "/privacy" },
+    { id: "terms", label: "Terms of Service", href: "/terms" },
+    { id: "cookies", label: "Cookie Policy", href: "/cookies" },
+  ],
+};
 
   const socialLinks = [
     { id: "facebook", icon: Facebook, href: "#", label: "Facebook" },
