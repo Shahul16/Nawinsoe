@@ -2,7 +2,10 @@ import { useEffect } from "react";
 import { useLocation } from "wouter";
 
 const SITE_NAME = "Nawins Overseas Education";
-const BASE_URL = "https://nawinsukstudyabroad.com";
+const BASE_URL = 
+  typeof window !== "undefined" && window.location.hostname === "localhost"
+    ? `${window.location.protocol}//${window.location.host}`
+    : (import.meta.env.VITE_DOMAIN || "https://nawinsukstudyabroad.com");
 const LOGO_URL = "/manus-static/nawins_education_advanced_logo_e06c3e9e.svg";
 
 const META_BY_PATH: Record<string, { title: string; description: string }> = {
@@ -231,11 +234,13 @@ export default function SeoManager() {
     setMetaByProperty("og:site_name", SITE_NAME);
     setMetaByProperty("og:title", seo.title);
     setMetaByProperty("og:description", seo.description);
+    setMetaByProperty("og:image", `${BASE_URL}${LOGO_URL}`);
     setMetaByProperty("og:type", "website");
     setMetaByProperty("og:url", `${BASE_URL}${path}`);
     setMetaByName("twitter:card", "summary_large_image");
     setMetaByName("twitter:title", seo.title);
     setMetaByName("twitter:description", seo.description);
+    setMetaByName("twitter:image", `${BASE_URL}${LOGO_URL}`);
     setCanonical(`${BASE_URL}${path}`);
     setStructuredData(path);
   }, [path]);
