@@ -11,7 +11,7 @@ export default function About() {
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-r from-[#091f54] via-[#163886] to-[#1b47a8]">
         <div className="container">
-          <h1 className="text-5xl font-bold text-white mb-6">About Nawins Edutech</h1>
+          <h1 className="text-5xl font-bold text-white mb-6">About Nawins Education</h1>
           <p className="text-xl text-purple-100 max-w-2xl">
             Your trusted partner in pursuing world-class education in the United Kingdom
           </p>
@@ -25,7 +25,7 @@ export default function About() {
             <div>
               <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Story</h2>
               <p className="text-lg text-gray-700 mb-4">
-                Nawins Education Technology started with a simple belief: that every student deserves access to world-class education and expert guidance through modern technology.
+                Nawins Education started with a simple belief: that every student deserves access to world-class education and expert guidance through modern technology.
               </p>
               <p className="text-lg text-gray-700 mb-4">
                 Our journey has been nothing less than epic. We've built a strong student network worldwide through sheer hard work and dedication, helping hundreds of students achieve their dreams of studying in the United Kingdom and beyond.
@@ -88,7 +88,7 @@ export default function About() {
       <section className="py-20 bg-white">
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose Nawins Edutech</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose Nawins Education</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

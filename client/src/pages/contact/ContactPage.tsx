@@ -99,7 +99,7 @@ export default function Contact() {
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-r from-[#091f54] via-[#163886] to-[#1b47a8]">
         <div className="container">
-          <h1 className="text-5xl font-bold text-white mb-6">Contact NAWINS Edutech</h1>
+          <h1 className="text-5xl font-bold text-white mb-6">Contact Nawins Education</h1>
           <p className="text-xl text-blue-100 max-w-2xl">
             Get in touch with our team. We're here to help you achieve your study abroad dreams!
           </p>

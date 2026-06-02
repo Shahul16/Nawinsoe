@@ -59,10 +59,10 @@ const footerLinks = {
                 </div>
               </div>
               <div>
-                <p className="font-bold tracking-wide text-white">Nawins Edutech</p>
-                <p className="text-xs uppercase tracking-[0.18em] text-blue-200/90">Education Technology & Global Career Consultants</p>
+                <p className="font-bold tracking-wide text-white">Nawins Education</p>
+                <p className="text-xs uppercase tracking-[0.18em] text-blue-200/90">Education Global Consultants</p>
             <p className="text-sm text-blue-100/75">
-              Your enterprise partner for global education. Nawins Education Technology is a leading Edutech consultancy providing end-to-end support for international admissions.
+              Your enterprise partner for global education. Nawins Education Pvt ltd is a leading Edutech consultancy providing end-to-end support for international admissions.
             </p>
           </div>
 
@@ -124,7 +124,7 @@ const footerLinks = {
             ))}
           </div>
             <p className="text-sm text-blue-100/60 text-center md:text-right">
-              © 2026 Nawins Education Technology. All Rights Reserved. | ISO 9001:2015 Certified
+              © 2026 Nawins Education Pvt Ltd. All Rights Reserved.
             </p>
         </div>
       </div>

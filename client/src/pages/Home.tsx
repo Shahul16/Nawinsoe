@@ -31,7 +31,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <span className="mb-4 inline-flex rounded-full border border-white/10 bg-[rgba(255,255,255,0.04)] px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/90">
-                NAWINS Edutech — Overseas Education & Global Career Consultants
+                Nawins Education — Global Education Consultants
               </span>
               <h1 className="mb-6 text-5xl font-extrabold leading-tight text-white lg:text-6xl">
                 Empowering Minds. Building Futures.
@@ -52,11 +52,11 @@ export default function Home() {
 
               <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-md">
                 <div className="bg-white/5 rounded-xl p-4 text-center">
-                  <p className="text-2xl font-bold text-white">5000+</p>
+                  <p className="text-2xl font-bold text-white">500+</p>
                   <p className="text-sm text-white/80">Students Guided</p>
                 </div>
                 <div className="bg-white/5 rounded-xl p-4 text-center">
-                  <p className="text-2xl font-bold text-white">100+</p>
+                  <p className="text-2xl font-bold text-white">10+</p>
                   <p className="text-sm text-white/80">University Partners</p>
                 </div>
                 <div className="bg-white/5 rounded-xl p-4 text-center">
@@ -73,7 +73,7 @@ export default function Home() {
             <div className="relative hidden lg:block">
               <div className="relative mx-auto max-w-md rounded-[2rem] border border-white/20 bg-white/10 p-7 backdrop-blur-md">
                 <div className="mb-6 flex items-center justify-between">
-                  <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-100">NAWINS Edutech</p>
+                  <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-100">Nawins Educationh</p>
                   <span className="rounded-full bg-amber-300/20 px-3 py-1 text-xs text-amber-100">Trusted</span>
                 </div>
                 <div className="glass-surface rounded-3xl p-6">

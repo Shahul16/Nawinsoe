@@ -10,11 +10,11 @@ const faqCategories = [
     category: "General Questions",
     items: [
       {
-        question: "What services does NAWINS Edutech provide?",
-        answer: "NAWINS Edutech provides comprehensive study abroad consulting services including university selection, application assistance, visa guidance, test preparation, scholarship assistance, and pre-departure orientation. Our team of experienced counselors helps students navigate the entire process of studying abroad."
+        question: "What services does Nawins Education provide?",
+        answer: "Nawins Education provides comprehensive study abroad consulting services including university selection, application assistance, visa guidance, test preparation, scholarship assistance, and pre-departure orientation. Our team of experienced counselors helps students navigate the entire process of studying abroad."
       },
       {
-        question: "Which countries does NAWINS Edutech help students study in?",
+        question: "Which countries does Nawins Education help students study in?",
         answer: "We specialize in helping students gain admission to universities in the UK, Canada, Australia, Ireland, and select European countries. Each destination has dedicated counselors with expertise in that region's education system and immigration requirements."
       },
       {
@@ -22,8 +22,8 @@ const faqCategories = [
         answer: "Our initial consultation is completely free. We charge service fees for comprehensive application support packages, which are clearly outlined before you commit. Many universities we partner with also pay us a commission, so our services can be free for students in certain cases."
       },
       {
-        question: "How long has NAWINS Edutech been operating?",
-        answer: "NAWINS EDUTECH PRIVATE LIMITED has been helping students achieve their international education dreams for over 10 years. We have successfully placed 5,000+ students in top universities worldwide with a 95% visa success rate."
+        question: "How long has Nawins Education been operating?",
+        answer: "Nawins Edutech Private Limited has been helping students achieve their international education dreams for over 3 years. We have successfully placed 500+ students in top universities worldwide with a 95% visa success rate."
       }
     ]
   },

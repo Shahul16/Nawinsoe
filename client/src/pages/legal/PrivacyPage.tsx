@@ -30,7 +30,7 @@ export default function Privacy() {
             <Card className="p-8 mb-8 border-0 shadow-md">
               <h2 className="text-2xl font-bold text-[#07173d] mb-4">1. Introduction</h2>
               <p className="text-[#48608f] mb-4">
-                NAWINS EDUTECH PRIVATE LIMITED ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.
+                Nawins Edutech Private Limited ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.
               </p>
               <p className="text-[#48608f]">
                 By accessing our website or providing your information to us, you agree to the collection and use of your information in accordance with this policy.

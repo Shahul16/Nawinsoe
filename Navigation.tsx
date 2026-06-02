@@ -29,8 +29,8 @@ export default function Navigation() {
             <Logo className="h-12 w-12 object-contain" width={48} height={48} />
           </div>
           <div className="hidden sm:block">
-            <p className="font-bold text-white tracking-wide">NAWINS Edutech</p>
-            <p className="text-[11px] uppercase tracking-[0.25em] text-white/80">Overseas Education & Global Career Consultants</p>
+            <p className="font-bold text-white tracking-wide">Nawins Education</p>
+            <p className="text-[11px] uppercase tracking-[0.25em] text-white/80">Global Education Consultants</p>
           </div>
         </div>
 

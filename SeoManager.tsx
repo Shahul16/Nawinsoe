@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "wouter";
 
-const SITE_NAME = "Nawins Edutech";
+const SITE_NAME = "Nawins Education";
 const BASE_URL = 
   typeof window !== "undefined" && window.location.hostname === "localhost"
     ? `${window.location.protocol}//${window.location.host}`
@@ -12,52 +12,52 @@ type SchemaPayload = Record<string, any>;
 
 const META_BY_PATH: Record<string, { title: string; description: string }> = {
   "/": {
-    title: "Study in UK. Simplified | Nawins Edutech",
+    title: "Study in UK. Simplified | Nawins Education",
     description:
       "Explore UK universities, courses, counseling, and visa guidance with Nawins Edutech.",
   },
   "/about": {
-    title: "About Nawins Edutech",
+    title: "About Nawins Education",
     description:
       "Learn how Nawins Edutech supports students with honest guidance, quality-first counseling, and global education pathways.",
   },
   "/services": {
-    title: "Study Abroad Services | Nawins Edutech",
+    title: "Study Abroad Services | Nawins Education",
     description:
       "Free counseling, university selection, IELTS/TOEFL coaching, and application plus visa support for UK studies.",
   },
   "/destinations": {
-    title: "Study Abroad Destinations | Nawins Edutech",
+    title: "Study Abroad Destinations | Nawins Education",
     description:
       "Explore UK, Canada, Australia, Ireland, and Europe. Compare universities, costs, and career opportunities.",
   },
   "/success-stories": {
-    title: "Student Success Stories | Nawins Edutech",
+    title: "Student Success Stories | Nawins Education",
     description:
       "Read inspiring stories of 1200+ students who achieved their dreams with Nawins Edutech counseling and guidance.",
   },
   "/universities": {
-    title: "Top UK Universities | Nawins Edutech",
+    title: "Top UK Universities | Nawins Education",
     description:
       "Browse leading UK universities, popular programs, and find the right admission pathway.",
   },
   "/blogs": {
-    title: "Study Abroad Blog | Nawins Edutech",
+    title: "Study Abroad Blog | Nawins Education",
     description:
       "Read practical guides and stories about UK admissions, visa strategy, courses, and student life.",
   },
   "/gallery": {
-    title: "Student Gallery | Nawins Edutech",
+    title: "Student Gallery | Nawins Education",
     description:
       "See campus moments, events, and student journey highlights from the Nawins Edutech community.",
   },
   "/contact": {
-    title: "Contact Nawins Edutech",
+    title: "Contact Nawins Education",
     description:
       "Talk to our counselors for UK admissions, course planning, and visa guidance.",
   },
   "/tasks": {
-    title: "Application Tasks & Reminders | Nawins Edutech",
+    title: "Application Tasks & Reminders | Nawins Education",
     description:
       "Manage counseling and admission tasks with completion tracking and optional browser notifications.",
   },
@@ -97,7 +97,7 @@ function setStructuredData(path: string) {
   const orgSchema = {
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
-    name: "Nawins Education Technology",
+    name: "Nawins Education",
     url: BASE_URL,
     logo: `${BASE_URL}${LOGO_URL}`,
     email: "info@nawinsedutech.com",
@@ -129,7 +129,7 @@ function setStructuredData(path: string) {
   const pageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: META_BY_PATH[path]?.title ?? "NAWINS Edutech Page",
+    name: META_BY_PATH[path]?.title ?? "Nawins Education Page",
     url: `${BASE_URL}${path}`,
     isPartOf: {
       "@type": "WebSite",
@@ -180,7 +180,7 @@ function setStructuredData(path: string) {
     mainEntity: [
       {
         "@type": "Question",
-        name: "What services does Nawins Edutech provide?",
+        name: "What services does Nawins Education provide?",
         acceptedAnswer: {
           "@type": "Answer",
           text: "Nawins Edutech provides free counseling, university selection, test preparation, application assistance, and visa support for studying abroad.",
@@ -188,7 +188,7 @@ function setStructuredData(path: string) {
       },
       {
         "@type": "Question",
-        name: "Which countries does Nawins Edutech help students study in?",
+        name: "Which countries does Nawins Education help students study in?",
         acceptedAnswer: {
           "@type": "Answer",
           text: "Nawins Edutech helps students with admissions to UK, Canada, Australia, Ireland, and European universities.",
@@ -196,7 +196,7 @@ function setStructuredData(path: string) {
       },
       {
         "@type": "Question",
-        name: "What is the success rate of Nawins Edutech?",
+        name: "What is the success rate of Nawins Education?",
         acceptedAnswer: {
           "@type": "Answer",
           text: "Nawins Edutech has helped 1200+ students get admitted to leading universities with a 95% visa success rate.",
@@ -227,7 +227,7 @@ export default function SeoManager() {
 
   useEffect(() => {
     const seo = META_BY_PATH[path] ?? {
-      title: "Page Not Found | Nawins Edutech",
+      title: "Page Not Found | Nawins Education",
       description: "The page you are looking for does not exist.",
     };
 

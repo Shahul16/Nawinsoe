@@ -31,7 +31,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <span className="mb-4 inline-flex rounded-full border border-white/10 bg-[rgba(255,255,255,0.04)] px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/90">
-                NAWINS Edutech — Overseas Education & Global Career Consultants
+                Nawins Education — Global Education Consultants
               </span>
               <h1 className="mb-6 text-5xl font-extrabold leading-tight text-white lg:text-6xl">
                 Empowering Minds. Building Futures.

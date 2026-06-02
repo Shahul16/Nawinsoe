@@ -33,7 +33,7 @@ export default function Gallery() {
       id: 3,
       category: "Student Farewell Events",
       title: "Farewell Dinner",
-      desc: "NAWINS Edutech team and students sharing memorable moments",
+      desc: "Nawins Education team and students sharing memorable moments",
       image: "🍽️",
       date: "March 2024",
     },
@@ -198,7 +198,7 @@ export default function Gallery() {
           ) : (
             <div className="text-center py-12">
               <Images className="w-16 h-16 text-[#d0d8e8] mx-auto mb-4" />
-              <p className="text-xl text-[#355183]">No NAWINS Edutech community moments found in this category.</p>
+              <p className="text-xl text-[#355183]">No Nawins Education community moments found in this category.</p>
             </div>
           )}
         </div>
