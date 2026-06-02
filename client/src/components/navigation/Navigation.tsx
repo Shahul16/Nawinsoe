@@ -16,7 +16,7 @@ export default function Navigation() {
     { label: "Universities", href: "/universities" },
     { label: "Success Stories", href: "/success-stories" },
     { label: "Blogs", href: "/blogs" },
-    { label: "Gallery", href: "/gallery" },
+    { label: "Careers", href: "/careers" },
     { label: "Contact", href: "/contact" },
   ];
 
@@ -25,12 +25,12 @@ export default function Navigation() {
       <div className="container flex items-center justify-between py-3">
         {/* Logo */}
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => setLocation("/")}>
-          <div className="brand-logo" title="NAWINS Edutech">
+          <div className="brand-logo" title="Nawins Education">
             <Logo className="h-12 w-12 object-contain" width={48} height={48} />
           </div>
           <div className="hidden sm:block">
-            <p className="font-bold text-white tracking-wide">NAWINS Edutech</p>
-            <p className="text-[11px] uppercase tracking-[0.25em] text-white/80">Overseas Education & Global Career Consultants</p>
+            <p className="font-bold text-white tracking-wide">Nawins Education</p>
+            <p className="text-[11px] uppercase tracking-[0.25em] text-white/80">Global Education Consultants</p>
           </div>
         </div>
 

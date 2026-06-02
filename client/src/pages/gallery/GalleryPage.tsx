@@ -1,5 +1,5 @@
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
+import Navigation from "@/components/navigation/Navigation";
+import Footer from "@/components/layout/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Images, Heart } from "lucide-react";
@@ -198,7 +198,7 @@ export default function Gallery() {
           ) : (
             <div className="text-center py-12">
               <Images className="w-16 h-16 text-[#d0d8e8] mx-auto mb-4" />
-              <p className="text-xl text-[#355183]">No NAWINS Edutech community moments found in this category.</p>
+              <p className="text-xl text-[#355183]">No Nawins Education community moments found in this category.</p>
             </div>
           )}
         </div>

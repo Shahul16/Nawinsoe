@@ -30,8 +30,8 @@ export default function Logo({ className = "", width = 192, height = 192, title 
       </g>
 
       <g transform="translate(80,420)">
-        <text x="0" y="0" fontFamily="Montserrat, Sans-serif" fontSize="72" letterSpacing="6" fill="#07133a" fontWeight="700">NAWINS</text>
-        <text x="0" y="60" fontFamily="Open Sans, Sans-serif" fontSize="22" letterSpacing="6" fill="#b7852f">Edutech</text>
+        <text x="0" y="0" fontFamily="Montserrat, Sans-serif" fontSize="72" letterSpacing="6" fill="#07133a" fontWeight="700">Nawins</text>
+        <text x="0" y="60" fontFamily="Open Sans, Sans-serif" fontSize="22" letterSpacing="6" fill="#b7852f">Education</text>
       </g>
     </svg>
   );

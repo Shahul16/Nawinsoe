@@ -1,10 +1,10 @@
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
+import Navigation from "@/components/navigation/Navigation";
+import Footer from "@/components/layout/Footer";
 import { Card } from "@/components/ui/card";
 import { Cookie, Mail } from "lucide-react";
 
 export default function Cookies() {
-  const lastUpdated = "February 6, 2026";
+  const lastUpdated = "June 2, 2026";
 
   return (
     <div className="min-h-screen bg-[#f7f9ff]">

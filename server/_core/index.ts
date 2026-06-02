@@ -5,7 +5,7 @@ import net from "net";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
 import { registerStorageProxy } from "./storageProxy";
-import { appRouter } from "../routers";
+import { appRouter } from "../routes/app.router";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 

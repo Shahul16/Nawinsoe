@@ -1,5 +1,5 @@
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
+import Navigation from "@/components/navigation/Navigation";
+import Footer from "@/components/layout/Footer";
 import { Card } from "@/components/ui/card";
 import { Scale, FileText, Mail } from "lucide-react";
 
@@ -28,14 +28,14 @@ export default function Terms() {
             <Card className="p-8 mb-8 border-0 shadow-md">
               <h2 className="text-2xl font-bold text-[#07173d] mb-4">1. Acceptance of Terms</h2>
               <p className="text-[#48608f] mb-4">
-                By accessing and using the NAWINS Edutech website and services provided by NAWINS EDUTECH PRIVATE LIMITED, you accept and agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
+                By accessing and using the Nawins Edutech website and services provided by Nawins Edutech Private Limited, you accept and agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
               </p>
             </Card>
 
             <Card className="p-8 mb-8 border-0 shadow-md">
               <h2 className="text-2xl font-bold text-[#07173d] mb-4">2. Description of Services</h2>
               <p className="text-[#48608f] mb-4">
-                NAWINS Edutech provides educational consulting services including:
+                Nawins Edutech provides educational consulting services including:
               </p>
               <ul className="list-disc list-inside text-[#48608f] space-y-2">
                 <li>University admission counseling</li>
@@ -77,7 +77,7 @@ export default function Terms() {
             <Card className="p-8 mb-8 border-0 shadow-md">
               <h2 className="text-2xl font-bold text-[#07173d] mb-4">5. Limitation of Liability</h2>
               <p className="text-[#48608f] mb-4">
-                NAWINS Edutech:
+                Nawins Education:
               </p>
               <ul className="list-disc list-inside text-[#48608f] space-y-2">
                 <li>Does not guarantee university admission</li>

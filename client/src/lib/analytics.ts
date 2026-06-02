@@ -21,12 +21,11 @@ export function initializeGoogleAnalytics() {
   document.head.appendChild(script);
 
   window.dataLayer = window.dataLayer || [];
-  function gtag() {
+  (window as any).gtag = function() {
     (window as any).dataLayer.push(arguments);
-  }
-  (window as any).gtag = gtag;
-  gtag("js", new Date());
-  gtag("config", gaId);
+  };
+  (window as any).gtag("js", new Date());
+  (window as any).gtag("config", gaId);
 }
 
 export function initializeGTM() {

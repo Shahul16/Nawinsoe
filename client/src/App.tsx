@@ -25,29 +25,41 @@ const StudyInUK = React.lazy(() => import("./pages/destinations/StudyInUKPage"))
 const StudyInCanada = React.lazy(() => import("./pages/destinations/StudyInCanadaPage"));
 const StudyInAustralia = React.lazy(() => import("./pages/destinations/StudyInAustraliaPage"));
 const StudyInIreland = React.lazy(() => import("./pages/destinations/StudyInIrelandPage"));
+const StudyInGermany = React.lazy(() => import("./pages/destinations/StudyInGermanyPage"));
+const StudyInFrance = React.lazy(() => import("./pages/destinations/StudyInFrancePage"));
+const StudyInNetherlands = React.lazy(() => import("./pages/destinations/StudyInNetherlandsPage"));
+const StudyInNewZealand = React.lazy(() => import("./pages/destinations/StudyInNewZealandPage"));
+const Careers = React.lazy(() => import("./pages/CareersPage"));
+const BookConsultation = React.lazy(() => import("./pages/BookConsultationPage"));
 
 function Router() {
   return (
     <Suspense fallback={<div aria-hidden className="min-h-screen" /> }>
       <Switch>
-        <Route path={"/"} component={Home} />
-        <Route path={"/about"} component={About} />
-        <Route path={"/services"} component={Services} />
-        <Route path={"/destinations"} component={Destinations} />
-        <Route path={"/success-stories"} component={SuccessStories} />
-        <Route path={"/universities"} component={Universities} />
-        <Route path={"/blogs"} component={Blogs} />
-        <Route path={"/gallery"} component={Gallery} />
-        <Route path={"/contact"} component={Contact} />
-        <Route path={"/tasks"} component={Tasks} />
-        <Route path={"/privacy"} component={Privacy} />
-        <Route path={"/terms"} component={Terms} />
-        <Route path={"/cookies"} component={Cookies} />
-        <Route path={"/faq"} component={Faq} />
-        <Route path={"/study-in-uk"} component={StudyInUK} />
-        <Route path={"/study-in-canada"} component={StudyInCanada} />
-        <Route path={"/study-in-australia"} component={StudyInAustralia} />
-        <Route path={"/study-in-ireland"} component={StudyInIreland} />
+<Route path={"/"} component={Home} />
+         <Route path={"/about"} component={About} />
+         <Route path={"/services"} component={Services} />
+         <Route path={"/destinations"} component={Destinations} />
+         <Route path={"/success-stories"} component={SuccessStories} />
+         <Route path={"/universities"} component={Universities} />
+         <Route path={"/blogs"} component={Blogs} />
+         <Route path={"/gallery"} component={Gallery} />
+         <Route path={"/contact"} component={Contact} />
+         <Route path={"/tasks"} component={Tasks} />
+         <Route path={"/privacy"} component={Privacy} />
+         <Route path={"/terms"} component={Terms} />
+         <Route path={"/cookies"} component={Cookies} />
+         <Route path={"/faq"} component={Faq} />
+         <Route path={"/study-in-uk"} component={StudyInUK} />
+         <Route path={"/study-in-canada"} component={StudyInCanada} />
+         <Route path={"/study-in-australia"} component={StudyInAustralia} />
+         <Route path={"/study-in-ireland"} component={StudyInIreland} />
+         <Route path={"/study-in-germany"} component={StudyInGermany} />
+         <Route path={"/study-in-france"} component={StudyInFrance} />
+         <Route path={"/study-in-netherlands"} component={StudyInNetherlands} />
+         <Route path={"/study-in-new-zealand"} component={StudyInNewZealand} />
+         <Route path={"/careers"} component={Careers} />
+         <Route path={"/book-consultation"} component={BookConsultation} />
         <Route path={"/404"} component={NotFound} />
         {/* Final fallback route */}
         <Route component={NotFound} />

@@ -1,5 +1,5 @@
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
+import Navigation from "@/components/navigation/Navigation";
+import Footer from "@/components/layout/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
@@ -277,7 +277,7 @@ export default function SuccessStories() {
         <div className="container">
           <Reveal>
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-[#07173d] mb-4">The NAWINS Edutech Journey</h2>
+              <h2 className="text-4xl font-bold text-[#07173d] mb-4">The Nawins Education Journey</h2>
               <p className="text-xl text-[#48608f]">How we guide students from dream to destination</p>
             </div>
           </Reveal>
@@ -333,7 +333,7 @@ export default function SuccessStories() {
         <div className="container">
           <CTASection
             title="Ready to Write Your Success Story?"
-            subtitle="Join thousands of successful students who have transformed their dreams into reality with NAWINS Edutech counseling"
+            subtitle="Join thousands of successful students who have transformed their dreams into reality with Nawins Education counseling"
           />
         </div>
       </section>

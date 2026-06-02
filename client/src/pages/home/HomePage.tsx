@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
+import Navigation from "@/components/navigation/Navigation";
+import Footer from "@/components/layout/Footer";
 import MotionWrapper from "@/components/animations/MotionWrapper";
 import Reveal from "@/components/animations/Reveal";
 import ServicesGrid from "@/components/premium/ServicesGrid";
@@ -73,7 +73,7 @@ export default function Home() {
             <div className="relative hidden lg:block">
               <div className="relative mx-auto max-w-md rounded-[2rem] border border-white/20 bg-white/10 p-7 backdrop-blur-md">
                 <div className="mb-6 flex items-center justify-between">
-                  <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-100">NAWINS Edutech</p>
+                  <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-100">Nawins Education</p>
                   <span className="rounded-full bg-amber-300/20 px-3 py-1 text-xs text-amber-100">Trusted</span>
                 </div>
                 <div className="glass-surface rounded-3xl p-6">

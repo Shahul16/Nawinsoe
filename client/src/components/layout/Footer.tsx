@@ -59,8 +59,8 @@ const footerLinks = {
                 </div>
               </div>
               <div>
-                <p className="font-bold tracking-wide text-white">NAWINS Edutech</p>
-                <p className="text-xs uppercase tracking-[0.18em] text-blue-200/90">Overseas Education & Global Career Consultants</p>
+                <p className="font-bold tracking-wide text-white">Nawins Education</p>
+                <p className="text-xs uppercase tracking-[0.18em] text-blue-200/90">Global Education Consultants</p>
               </div>
             </div>
             <p className="text-sm text-blue-100/75">
@@ -128,7 +128,7 @@ const footerLinks = {
             ))}
           </div>
             <p className="text-sm text-blue-100/60 text-center md:text-right">
-              © 2026 NAWINS EDUTECH PRIVATE LIMITED. All Rights Reserved. | Based in Tamil Nadu, India
+              © 2026 Nawins Edutech Private Limited. All Rights Reserved. | Based in Tamil Nadu, India
             </p>
         </div>
       </div>

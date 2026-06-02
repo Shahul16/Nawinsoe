@@ -1,5 +1,5 @@
-import Footer from "@/components/Footer";
-import Navigation from "@/components/Navigation";
+import Footer from "@/components/layout/Footer";
+import Navigation from "@/components/navigation/Navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
