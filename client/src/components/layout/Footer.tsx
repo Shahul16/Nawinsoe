@@ -27,12 +27,26 @@ const footerLinks = {
   ],
 };
 
-  const socialLinks = [
-    { id: "facebook", icon: Facebook, href: "#", label: "Facebook" },
-    { id: "twitter", icon: Twitter, href: "#", label: "Twitter" },
-    { id: "linkedin", icon: Linkedin, href: "#", label: "LinkedIn" },
-    { id: "instagram", icon: Instagram, href: "#", label: "Instagram" },
-  ];
+const socialLinks = [
+  {
+    id: "facebook",
+    icon: Facebook,
+    href: "https://www.facebook.com/profile.php?id=61590763943705",
+    label: "Facebook",
+  },
+  {
+    id: "linkedin",
+    icon: Linkedin,
+    href: "https://www.linkedin.com/company/nawins-education/",
+    label: "LinkedIn",
+  },
+  {
+    id: "instagram",
+    icon: Instagram,
+    href: "https://www.instagram.com/nawins_education/",
+    label: "Instagram",
+  },
+];
 
   const handleFooterNavigation = (href: string, label: string) => {
     if (href.startsWith("/")) {
@@ -120,6 +134,8 @@ const footerLinks = {
               <a
                 key={`social-${social.id}`}
                 href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={`Follow us on ${social.label}`}
                 className="rounded-full border border-white/20 bg-white/5 p-2 text-blue-100/80 transition-all hover:border-amber-300/40 hover:text-amber-300"
               >

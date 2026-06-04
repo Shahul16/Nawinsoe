@@ -188,6 +188,20 @@
   }
 }
 
+  /**
+   * ── Marquee animation keyframes ─────────────────────────────────
+   * Used by PartnersWall infinite logo carousel.
+   * translateX(0) → translateX(-50%) on duplicated tracks → seamless loop.
+   */
+  @keyframes marquee-left {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes marquee-right {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+  }
+
 @layer components {
   /**
    * Custom container utility that centers content and adds responsive padding.
@@ -223,6 +237,35 @@
     );
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
+  /* ── Marquee utilities ──────────────────────────────────────────── */
+  .animate-marquee-left {
+    animation: marquee-left 28s linear infinite;
+  }
+  .animate-marquee-left-slow {
+    animation: marquee-left 36s linear infinite;
+  }
+  .animate-marquee-right {
+    animation: marquee-right 28s linear infinite;
+  }
+  .animate-marquee-right-slow {
+    animation: marquee-right 36s linear infinite;
+  }
+
+  @media (max-width: 639px) {
+    .animate-marquee-left {
+      animation-duration: 34s;
+    }
+    .animate-marquee-left-slow {
+      animation-duration: 42s;
+    }
+    .animate-marquee-right {
+      animation-duration: 34s;
+    }
+    .animate-marquee-right-slow {
+      animation-duration: 42s;
+    }
   }
 
   @media (min-width: 640px) {

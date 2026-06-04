@@ -2,7 +2,7 @@ import Navigation from "@/components/navigation/Navigation";
 import Footer from "@/components/layout/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Award, Users, Globe, Zap, Target, BookOpen, Shield, MapPin, User, Calendar, GraduationCap } from "lucide-react";
+import { Award, Users, Globe, Zap, Target, BookOpen, Shield, MapPin, User, Calendar, GraduationCap, Linkedin, ExternalLink } from "lucide-react";
 import { useLocation } from "wouter";
 
 export default function About() {
@@ -18,18 +18,21 @@ export default function About() {
   const teamMembers = [
     {
       name: "Dr. Chandrakumar",
-      role: "Founder & Managing Director",
-      description: "Over 10 years in international education, passionate about helping students achieve their UK dreams"
+      role: "Co-Director & Chief Executive Advisor",
+      description: "Over 10 years in international education, passionate about helping students achieve their UK dreams",
+      linkedin: "https://www.linkedin.com/in/drkchandrakumar/"
     },
     {
-      name: "Ms. Kavya",
-      role: "Head Counselor",
-      description: "Specialized in UK admissions with expertise in course selection and visa guidance"
+      name: "Mrs. Sasirekha",
+      role: "Relationship Manager & Senior Counselor",
+      description: "Specialized in UK admissions with expertise in course selection and visa guidance",
+      linkedin: "https://www.linkedin.com/company/nawins-education/"
     },
     {
-      name: "Ms. Faizuu",
+      name: "Mr. Hameed",
       role: "Senior Counselor",
-      description: "Expert in Canadian and Australian education pathways with 2+ years experience"
+      description: "Expert in Canadian and Australian education pathways with 2+ years experience",
+      linkedin: "https://www.linkedin.com/company/nawins-education/"
     }
   ];
 
@@ -104,20 +107,27 @@ export default function About() {
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Founder & Managing Director</h2>
           </div>
-          <Card className="p-8 border border-blue-100/70 bg-gradient-to-r from-blue-50 to-purple-50 max-w-3xl mx-auto">
-            <div className="flex flex-col md:flex-row items-center gap-6">
-              <div className="w-32 h-32 bg-gradient-to-r from-[#17337d] to-[#213a5b] rounded-full flex items-center justify-center flex-shrink-0">
-                <User className="w-16 h-16 text-white" />
+          <a
+            href="https://www.linkedin.com/company/nawins-education/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block"
+          >
+            <Card className="p-8 border border-blue-100/70 bg-gradient-to-r from-blue-50 to-purple-50 max-w-3xl mx-auto hover:shadow-lg transition-shadow cursor-pointer">
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="w-32 h-32 bg-gradient-to-r from-[#17337d] to-[#213a5b] rounded-full flex items-center justify-center flex-shrink-0">
+                  <User className="w-16 h-16 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-[#07173d] mb-2">Mrs. Vijaya</h3>
+                  <p className="text-[#17337d] font-semibold mb-3">Founder & Managing Director</p>
+                  <p className="text-gray-700">
+                    With over a decade of experience in international education, Mrs. Vijaya founded Nawins Education with the vision of making quality overseas education accessible to students from Tamil Nadu and across India.
+                  </p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-2xl font-bold text-[#07173d] mb-2">Dr. Chandrakumar</h3>
-                <p className="text-[#17337d] font-semibold mb-3">Founder & Managing Director</p>
-                <p className="text-gray-700">
-                  With over a decade of experience in international education, Dr. Chandrakumar founded Nawins Education with the vision of making quality overseas education accessible to students from Tamil Nadu and across India.
-                </p>
-              </div>
-            </div>
-          </Card>
+            </Card>
+          </a>
         </div>
       </section>
 
@@ -153,14 +163,22 @@ export default function About() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {teamMembers.map((member, idx) => (
-              <Card key={idx} className="p-6 border border-blue-100/70 bg-white text-center">
-                <div className="w-20 h-20 bg-gradient-to-r from-[#17337d] to-[#213a5b] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <User className="w-10 h-10 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-[#07173d] mb-1">{member.name}</h3>
-                <p className="text-[#17337d] text-sm font-semibold mb-3">{member.role}</p>
-                <p className="text-gray-600 text-sm">{member.description}</p>
-              </Card>
+              <a
+                key={idx}
+                href={member.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <Card className="p-6 border border-blue-100/70 bg-white text-center hover:shadow-lg transition-shadow cursor-pointer">
+                  <div className="w-20 h-20 bg-gradient-to-r from-[#17337d] to-[#213a5b] rounded-full flex items-center justify-center mx-auto mb-4">
+                    <User className="w-10 h-10 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-[#07173d] mb-1">{member.name}</h3>
+                  <p className="text-[#17337d] text-sm font-semibold mb-3">{member.role}</p>
+                  <p className="text-gray-600 text-sm">{member.description}</p>
+                </Card>
+              </a>
             ))}
           </div>
         </div>
