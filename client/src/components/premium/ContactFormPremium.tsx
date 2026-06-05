@@ -2,11 +2,29 @@ import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { trpc } from '@/lib/trpc';
 
 export default function ContactFormPremium(){
+  const createInquiry = trpc.inquiries.create.useMutation();
   const [data,setData] = useState({name:'',email:'',phone:'',destination:'',course:'',message:''});
   const handleChange = (e:any)=> setData(prev=>({...prev,[e.target.name]:e.target.value}));
-  const handleSubmit = (e:any)=>{e.preventDefault(); toast.success('Inquiry sent.'); setData({name:'',email:'',phone:'',destination:'',course:'',message:''})}
+
+  const handleSubmit = async (e:any)=>{
+    e.preventDefault();
+    try {
+      await createInquiry.mutateAsync({
+        name: data.name,
+        email: data.email,
+        phone: data.phone || undefined,
+        preferredCourse: data.course || 'Premium Home Form',
+        message: `[premium-home-form]\nDestination: ${data.destination}\n${data.message || ''}`.trim(),
+      });
+      toast.success('Inquiry sent.');
+      setData({name:'',email:'',phone:'',destination:'',course:'',message:''});
+    } catch {
+      toast.error('Failed to send inquiry', { description: 'Please try again or contact us directly.' });
+    }
+  };
 
   return (
     <section className="py-20 bg-[linear-gradient(90deg,#fff,#f8fafc)]">
@@ -24,7 +42,7 @@ export default function ContactFormPremium(){
             <Input name="course" value={data.course} onChange={handleChange} placeholder="Preferred Course" />
             <textarea name="message" value={data.message} onChange={handleChange} placeholder="Message" className="col-span-1 md:col-span-2 rounded-lg p-3 border border-[rgba(4,15,35,0.06)]" />
             <div className="col-span-1 md:col-span-2 text-right">
-              <Button type="submit" className="rounded-full bg-[var(--accent)] text-[var(--accent-foreground)] px-6 py-3">Request Consultation</Button>
+              <Button type="submit" disabled={createInquiry.isPending} className="rounded-full bg-[var(--accent)] text-[var(--accent-foreground)] px-6 py-3">Request Consultation</Button>
             </div>
           </form>
         </div>
@@ -32,3 +50,4 @@ export default function ContactFormPremium(){
     </section>
   )
 }
+

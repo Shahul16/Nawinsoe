@@ -19,6 +19,8 @@ import {
 } from "../db";
 import { notifyOwner } from "../_core/notification";
 import { sendLeadToCrm } from "../_core/crm";
+import { upsertContactAndCreateDeal, upsertContactOnly } from "../_core/hubspot";
+
 
 export const appRouter = router({
   system: systemRouter,
@@ -81,7 +83,28 @@ export const appRouter = router({
             console.warn("Failed to notify owner for inquiry:", notifyError);
           }
 
+          // HubSpot forwarding must never break form submission.
+          try {
+            const routeKey: "contact" | "premium-home-form" | "book-consultation" =
+              input.preferredCourse === "Consultation Booking" ? "book-consultation" : input.preferredCourse === "Premium Home Form" ? "premium-home-form" : "contact";
+
+            await upsertContactAndCreateDeal({
+              routeKey,
+              lead: {
+                fullName: input.name,
+                email: input.email,
+                phone: input.phone,
+                preferredCourse: input.preferredCourse,
+                message: input.message,
+                intakeYear: input.intakeYear,
+              },
+            });
+          } catch (hubspotErr) {
+            console.error("[HubSpot] Inquiry forwarding failed", hubspotErr);
+          }
+
           return { success: true, data: result };
+
         } catch (error) {
           // If DB is unavailable, forward the lead to CRM/email webhook if configured.
           console.warn("Failed to create inquiry in DB, attempting CRM/email fallback:", error);
@@ -140,7 +163,18 @@ export const appRouter = router({
             console.warn("Failed to notify owner for newsletter subscription:", notifyError);
           }
 
+          // HubSpot contact-only must never break form submission.
+          try {
+            await upsertContactOnly({
+              fullName: input.name || input.email,
+              email: input.email,
+            });
+          } catch (hubspotErr) {
+            console.error("[HubSpot] Newsletter forwarding failed", hubspotErr);
+          }
+
           return { success: true, data: result };
+
         } catch (error) {
           console.error("Failed to create newsletter subscription:", error);
           throw error;
@@ -275,7 +309,41 @@ tasks: router({
              console.warn("Failed to notify owner for job application:", notifyError);
            }
 
+           // HubSpot contact-only must never break application submission.
+           try {
+             await upsertContactOnly({
+               fullName: input.fullName,
+               email: input.email,
+               phone: input.phone,
+               preferredCourse: input.position,
+               message: input.coverLetter,
+             });
+           } catch (hubspotErr) {
+             console.error("[HubSpot] Careers forwarding failed", hubspotErr);
+           }
+
+           // Email sending (SMTP via server/_core/email.ts)
+           // Failures must never break the application submission.
+           try {
+             // Lazy-load to avoid importing nodemailer in environments that don't need it.
+             const { sendCareersNotificationEmail } = await import("../_core/email");
+             await sendCareersNotificationEmail({
+               to: ["careers@nawinsedutech.com", "info@nawinsedutech.com"],
+               fullName: input.fullName,
+               email: input.email,
+               phone: input.phone,
+               city: input.city,
+               position: input.position,
+               experience: input.experience,
+               coverLetter: input.coverLetter,
+               resumeFile: input.resumeFile,
+             });
+           } catch (emailErr) {
+             console.error("[Email] Careers notification failed", emailErr);
+           }
+
            return { success: true, data: result } as const;
+
          } catch (error) {
            console.error("Failed to create job application:", error);
            throw error;
