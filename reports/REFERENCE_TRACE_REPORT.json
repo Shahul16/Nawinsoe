@@ -1,0 +1,520 @@
+{
+  "scanRoot": "/Users/shahul/Downloads/Nawins-Website",
+  "scannedDirs": [
+    "client/src",
+    "server",
+    "shared",
+    "scripts",
+    "docs",
+    "reports"
+  ],
+  "fileCount": 175,
+  "entryFiles": [
+    "client/src/main.tsx",
+    "client/src/App.tsx",
+    "client/src/index.css",
+    "server/_core/index.ts",
+    "server/routes/app.router.ts",
+    "shared/const.ts"
+  ],
+  "reachableCount": 48,
+  "unusedZeroIncomingCandidatesCount": 124,
+  "sampleUnusedCandidates": [
+    {
+      "file": "shared/types.ts",
+      "referenceCount": 0
+    },
+    {
+      "file": "server/storage.ts",
+      "referenceCount": 0
+    },
+    {
+      "file": "server/_core/map.ts",
+      "referenceCount": 0
+    },
+    {
+      "file": "server/_core/llm.ts",
+      "referenceCount": 0
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/lib/crm.ts",
+      "referenceCount": 0
+    },
+    {
+      "file": "reports/REPO_AUDIT.md",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/lib/trpc.ts",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/lib/jobs.ts",
+      "referenceCount": 0
+    },
+    {
+      "file": "scripts/fetch-fonts.js",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/lib/utils.ts",
+      "referenceCount": 0
+    },
+    {
+      "file": "server/_core/dataApi.ts",
+      "referenceCount": 0
+    },
+    {
+      "file": "scripts/ttf-to-woff2.js",
+      "referenceCount": 0
+    },
+    {
+      "file": "reports/GAP_ANALYSIS.md",
+      "referenceCount": 0
+    },
+    {
+      "file": "server/inquiries.test.ts",
+      "referenceCount": 0
+    },
+    {
+      "file": "server/_core/heartbeat.ts",
+      "referenceCount": 0
+    },
+    {
+      "file": "scripts/convert-assets.js",
+      "referenceCount": 0
+    },
+    {
+      "file": "reports/CLEANUP_REPORT.md",
+      "referenceCount": 0
+    },
+    {
+      "file": "server/auth.logout.test.ts",
+      "referenceCount": 0
+    },
+    {
+      "file": "scripts/generate-assets.js",
+      "referenceCount": 0
+    },
+    {
+      "file": "reports/REFACTOR_REPORT.md",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/app/providers.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "reports/WEBSITE_PROTOTYPE.md",
+      "referenceCount": 0
+    },
+    {
+      "file": "reports/FINAL_ACTION_LIST.md",
+      "referenceCount": 0
+    },
+    {
+      "file": "reports/CONTENT_INVENTORY.md",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/pages/NotFound.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/constants/index.ts",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/lib/fallbackData.ts",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/hooks/useMobile.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/Logo.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "server/_core/types/cookie.d.ts",
+      "referenceCount": 0
+    },
+    {
+      "file": "reports/IMPLEMENTATION_PLAN.md",
+      "referenceCount": 0
+    },
+    {
+      "file": "reports/FINAL_PENDING_ITEMS.md",
+      "referenceCount": 0
+    },
+    {
+      "file": "server/_core/imageGeneration.ts",
+      "referenceCount": 0
+    },
+    {
+      "file": "reports/WEBSITE_ARCHITECTURE.md",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/kbd.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "reports/LOCALHOST_TEST_REPORT.md",
+      "referenceCount": 0
+    },
+    {
+      "file": "reports/ARCHITECTURE_ANALYSIS.md",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/layouts/RootLayout.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/tabs.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/item.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/form.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/card.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/_core/hooks/useAuth.ts",
+      "referenceCount": 0
+    },
+    {
+      "file": "reports/IMPLEMENTATION_ROADMAP.md",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/hooks/useComposition.ts",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/table.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/sheet.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/label.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/input.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/field.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/empty.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/chart.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/badge.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/alert.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "server/services/storage.service.ts",
+      "referenceCount": 0
+    },
+    {
+      "file": "server/_core/voiceTranscription.ts",
+      "referenceCount": 0
+    },
+    {
+      "file": "reports/PROJECT_MASTER_ANALYSIS.md",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/toggle.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/switch.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/sonner.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/slider.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/select.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/drawer.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/dialog.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/button.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/avatar.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "scripts/convert-assets-puppeteer.js",
+      "referenceCount": 0
+    },
+    {
+      "file": "reports/REFERENCE_TRACE_REPORT.json",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/tooltip.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/spinner.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/sidebar.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/popover.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/menubar.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/command.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/CTASection.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "scripts/generate-assets-puppeteer.js",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/textarea.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/skeleton.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/progress.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/checkbox.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/carousel.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/calendar.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/shared/Logo.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "reports/NAWINS_MASTER_PROJECT_PLAN.md",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/separator.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/resizable.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/input-otp.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/accordion.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/pagination.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/hover-card.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/breadcrumb.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/shared/Reveal.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/shared/Footer.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/layout/Footer.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "reports/UNUSED_FILES_REPORT_PRELIM.json",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/scroll-area.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/radio-group.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/input-group.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/collapsible.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "reports/FINAL_LAUNCH_READINESS_REPORT.md",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/toggle-group.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/context-menu.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/button-group.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/aspect-ratio.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/alert-dialog.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "reports/FINAL_IMPLEMENTATION_CHECKLIST.md",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/dropdown-menu.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/shared/SeoManager.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/shared/Navigation.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/shared/CTASection.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/animations/Reveal.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/ui/navigation-menu.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/sections/CTASection.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/shared/MotionWrapper.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/shared/ErrorBoundary.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/premium/ServicesGrid.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/premium/PartnersWall.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/premium/Destinations.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/navigation/Navigation.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/premium/JourneyTimeline.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/animations/MotionWrapper.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/premium/ContactFormPremium.tsx",
+      "referenceCount": 0
+    },
+    {
+      "file": "client/src/components/premium/TestimonialsPremium.tsx",
+      "referenceCount": 0
+    }
+  ]
+}
