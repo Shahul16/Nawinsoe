@@ -9,12 +9,17 @@ import { getLoginUrl } from "./const";
 import "./index.css";
 import { initializeGoogleAnalytics, initializeGTM, initializeMetaPixel } from "./lib/analytics";
 
-// Initialize analytics and tracking
+// Initialize analytics and tracking (must never block React boot)
 if (typeof window !== "undefined") {
-  initializeGoogleAnalytics();
-  initializeGTM();
-  initializeMetaPixel();
+  try {
+    initializeGoogleAnalytics();
+    initializeGTM();
+    initializeMetaPixel();
+  } catch {
+    // ignore analytics init failures so the UI always renders
+  }
 }
+
 
 const queryClient = new QueryClient();
 
