@@ -62,8 +62,8 @@ export default function Contact() {
   ];
 
   const ukHours = [
-    { id: "uk-wd", day: "Monday – Friday", time: "4:30 AM – 1:30 PM", closed: false },
-    { id: "uk-sat", day: "Saturday", time: "5:30 AM – 11:30 AM", closed: false },
+    { id: "uk-wd", day: "Monday – Friday", time: "9:30 AM – 6:00 PM", closed: false },
+    { id: "uk-sat", day: "Saturday", time: "10:00 AM – 04:00 AM", closed: false },
     { id: "uk-sun", day: "Sunday", time: "Closed", closed: true },
   ];
 
@@ -145,7 +145,7 @@ export default function Contact() {
               <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-[#94a3b8]">UK Office</p>
               <p className="mb-1 font-bold text-[#07173d]">United Kingdom</p>
               <a href="tel:+447586261118" className="text-sm font-semibold text-[#294fca] hover:underline">
-                +44 7586 261118
+                +44 7778 099414
               </a>
             </Card>
 
@@ -157,7 +157,7 @@ export default function Contact() {
               <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-[#94a3b8]">Visit Us</p>
               <p className="mb-1 font-bold text-[#07173d]">Head Office</p>
               <p className="text-sm text-[#48608f] leading-relaxed">
-                12A, 3rd Floor, Marappa Gounder Plaza,<br />
+                No 59/3 - 13/4, 3rd Floor, HDFC Bank Upstairs, Marappa Gounder Plaza,<br />
                 West Car Street, Tiruchengode,<br />
                 Namakkal – 637211, Tamil Nadu
               </p>
@@ -257,7 +257,7 @@ export default function Contact() {
                   href="tel:+447586261118"
                   className="flex items-center justify-between text-sm font-semibold text-[#294fca] hover:text-[#07173d] transition-colors"
                 >
-                  <span>📞 +44 7586 261118</span>
+                  <span>📞 +44 7778 099414</span>
                   <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
@@ -304,10 +304,10 @@ export default function Contact() {
                     <MessageCircle className="w-4 h-4 text-green-400" />
                     WhatsApp India &nbsp;·&nbsp; +91 99437 38177
                   </a>
-                  <a href="https://wa.me/447586261118" target="_blank" rel="noopener noreferrer"
+                  <a href="https://wa.me/447778099414" target="_blank" rel="noopener noreferrer"
                     className="flex items-center gap-3 rounded-xl bg-white/10 px-4 py-3 text-sm font-semibold hover:bg-white/20 transition-colors">
                     <MessageCircle className="w-4 h-4 text-green-400" />
-                    WhatsApp UK &nbsp;·&nbsp; +44 7586 261118
+                    WhatsApp UK &nbsp;·&nbsp; ++44 7778 099414
                   </a>
                   <a href="mailto:info@nawinsedutech.com"
                     className="flex items-center gap-3 rounded-xl bg-white/10 px-4 py-3 text-sm font-semibold hover:bg-white/20 transition-colors">
