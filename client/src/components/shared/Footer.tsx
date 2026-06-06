@@ -14,12 +14,13 @@ const footerLinks = {
     { id: "universities", label: "Universities", href: "/universities" },
     { id: "contact", label: "Contact", href: "/contact" },
   ],
-  Resources: [
-    { id: "success-stories", label: "Success Stories", href: "/success-stories" },
-    { id: "blogs", label: "Blogs", href: "/blogs" },
-    { id: "gallery", label: "Gallery", href: "/gallery" },
-    { id: "faq", label: "FAQ", href: "/faq" },
-  ],
+Resources: [
+  { id: "success-stories", label: "Success Stories", href: "/success-stories" },
+  { id: "blogs", label: "Blogs", href: "/blogs" },
+  { id: "gallery", label: "Gallery", href: "/gallery" },
+  { id: "faq", label: "FAQ", href: "/faq" },
+  { id: "consultation", label: "Book Consultation", href: "/contact" },
+],
   Legal: [
     { id: "privacy", label: "Privacy Policy", href: "/privacy" },
     { id: "terms", label: "Terms of Service", href: "/terms" },
@@ -47,12 +48,11 @@ const socialLinks = [
     label: "Instagram",
   },
   {
-    id: "X",
-    icon: Twitter,
-    href: "https://www.x.com/nawinseducation/",
-    label: "X (formerly Twitter)",
-  },
-  
+  id: "google",
+  icon: MapPin,
+  href: "https://maps.app.goo.gl/6vQP9QaPtvaMpx1A8",
+  label: "Google Business Profile",
+}
 ];
 
   const handleFooterNavigation = (href: string, label: string) => {
@@ -85,9 +85,9 @@ const socialLinks = [
               </div>
             </div>
             <p className="text-sm text-blue-100/75">
-              Study in UK. Simplified.
+              Empowering Minds. Building Futures.
               <br />
-              Your journey to world-class education starts here.
+              Trusted overseas education consultants helping students pursue higher education opportunities in the UK, Canada, Australia, Ireland, Germany and beyond.
             </p>
           </div>
 
@@ -136,23 +136,30 @@ const socialLinks = [
 
         {/* Social Media & Copyright */}
         <div className="flex flex-col items-center justify-between border-t border-white/15 pt-8 md:flex-row">
-          <div className="flex gap-4 mb-4 md:mb-0">
-            {socialLinks.map((social) => (
-              <a
-                key={`social-${social.id}`}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`Follow us on ${social.label}`}
-                className="rounded-full border border-white/20 bg-white/5 p-2 text-blue-100/80 transition-all hover:border-amber-300/40 hover:text-amber-300"
-              >
-                <social.icon className="w-5 h-5" />
-              </a>
-            ))}
-          </div>
-            <p className="text-sm text-blue-100/60 text-center md:text-right">
-              © 2026 Nawins Edutech Private Limited. All Rights Reserved. | Based in Tamil Nadu, India
+          <div className="w-full">
+            <p className="text-sm text-blue-100/70 mb-3 text-center md:text-left">
+              Follow us and read our latest student success stories.
             </p>
+
+            <div className="flex gap-4 mb-4 md:mb-0">
+              {socialLinks.map((social) => (
+                <a
+                  key={`social-${social.id}`}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Follow us on ${social.label}`}
+                  className="rounded-full border border-white/20 bg-white/5 p-2 text-blue-100/80 transition-all hover:border-amber-300/40 hover:text-amber-300"
+                >
+                  <social.icon className="w-5 h-5" />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <p className="text-sm text-blue-100/60 text-center md:text-right">
+            © 2026 Nawins Edutech Private Limited. All Rights Reserved.
+          </p>
         </div>
       </div>
     </footer>
