@@ -13,7 +13,7 @@
 - `pnpm build` ✅
 - `dist/public/fonts/fonts.css` ✅
 - `dist/public/favicon.ico` ✅
-- `dist/public/manus-static/nawins_education_advanced_logo_e06c3e9e.svg` ✅
+- `dist/public/manus-static/nawins_education_logo_v2.svg` ✅
 
 ### Deletions (safe after verification)
 - Removed repo-root assets that were no longer used by the app:

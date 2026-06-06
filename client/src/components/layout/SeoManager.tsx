@@ -6,7 +6,7 @@ const BASE_URL =
   typeof window !== "undefined" && window.location.hostname === "localhost"
     ? `${window.location.protocol}//${window.location.host}`
     : (import.meta.env.VITE_DOMAIN || "https://www.nawinsedutech.com");
-const LOGO_URL = "/manus-storage/nawins_education_advanced_logo_e06c3e9e.png";
+const LOGO_URL = "/manus-static/nawins_education_logo_v2.svg?v=2";
 
 type SchemaPayload = Record<string, any>;
 

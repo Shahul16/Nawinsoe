@@ -134,7 +134,7 @@ All Radix UI shadcn-style components including:
 | nawins_logo_512.png | Image | Main logo (512x512) |
 | robots.txt | Text | SEO crawler directives |
 | sitemap.xml | XML | SEO sitemap |
-| manus-static/nawins_education_advanced_logo_e06c3e9e.svg | SVG | Alternative logo |
+| manus-static/nawins_education_logo_v2.svg | SVG | Main logo (v2, cache-busted) |
 | manus-static/nawins_education_favicon.svg | SVG | Favicon |
 
 ### Static Assets

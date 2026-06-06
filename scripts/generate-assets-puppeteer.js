@@ -4,7 +4,7 @@ import puppeteer from 'puppeteer';
 import pngToIco from 'png-to-ico';
 
 const root = process.cwd();
-const svgPath = path.join(root, 'client', 'public', 'manus-static', 'nawins_education_advanced_logo_e06c3e9e.svg');
+const svgPath = path.join(root, 'client', 'public', 'manus-static', 'nawins_education_logo_v2.svg');
 const outDir = path.join(root, 'client', 'public', 'manus-storage');
 
 if (!fs.existsSync(svgPath)) {
