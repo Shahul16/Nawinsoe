@@ -121,7 +121,7 @@ const socialLinks = [
               </div>
               <div className="flex items-start gap-2">
                 <MapPin className="mt-1 h-4 w-4 text-amber-300" />
-                <p className="text-sm text-blue-100/90">12A - 3rd Floor, HDFC Bank Upstairs, Marappa Gounder Plaza, West Car Street, Tiruchengode, Namakkal – 637211</p>
+                <p className="text-sm text-blue-100/90">No 59/3 - 13/4, 3rd Floor, HDFC Bank Upstairs, Marappa Gounder Plaza, West Car Street, Tiruchengode, Namakkal – 637211</p>
               </div>
             </div>
           </div>

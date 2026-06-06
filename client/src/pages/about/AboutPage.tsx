@@ -222,7 +222,7 @@ export default function About() {
               <div>
                 <h3 className="text-2xl font-bold text-[#07173d] mb-3">Tiruchengode, Tamil Nadu</h3>
                 <p className="text-gray-700 mb-2">
-                  12A - 3rd Floor, HDFC Bank Upstairs<br />
+                  No 59/3 - 13/4, 3rd Floor, HDFC Bank Upstairs<br />
                   Marappa Gounder Plaza, West Car Street<br />
                   Tiruchengode, Tamil Nadu - 637211
                 </p>

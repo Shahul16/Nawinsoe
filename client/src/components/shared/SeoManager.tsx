@@ -155,8 +155,8 @@ function setStructuredData(path: string) {
     sameAs: [],
     address: {
       "@type": "PostalAddress",
-      streetAddress:
-        "12A - 3rd Floor, HDFC Bank Upstairs, Marappa Gounder Plaza, West Car Street",
+streetAddress:
+         "No 59/3 - 13/4, 3rd Floor, HDFC Bank Upstairs, Marappa Gounder Plaza, West Car Street",
       addressLocality: "Tiruchengode",
       addressRegion: "Tamil Nadu",
       postalCode: "637211",

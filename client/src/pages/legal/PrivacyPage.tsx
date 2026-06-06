@@ -134,7 +134,7 @@ export default function Privacy() {
                   </p>
                   <p className="text-[#48608f]">
                     Email: privacy@nawinsedutech.com<br />
-                    Address: 12A - 3rd Floor, HDFC Bank Upstairs, Marappa Gounder Plaza, West Car Street, Tiruchengode, Namakkal – 637211
+                    Address: No 59/3 - 13/4, 3rd Floor, HDFC Bank Upstairs, Marappa Gounder Plaza, West Car Street, Tiruchengode, Namakkal – 637211
                   </p>
                 </div>
               </div>
