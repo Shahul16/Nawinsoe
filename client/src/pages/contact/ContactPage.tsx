@@ -26,6 +26,7 @@ export default function Contact() {
       const now = new Date();
       setIndiaTime(now.toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true }));
       setUkTime(now.toLocaleTimeString("en-GB", { timeZone: "Europe/London", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true }));
+      setUAETime(now.toLocaleTimeString("en-GB", { timeZone: "Asia/Dubai", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true }));
     };
     tick();
     const id = setInterval(tick, 1000);
@@ -55,17 +56,23 @@ export default function Contact() {
     }
   };
 
-  const indiaHours = [
-    { id: "in-wd", day: "Monday – Friday", time: "9:00 AM – 6:00 PM", closed: false },
-    { id: "in-sat", day: "Saturday", time: "10:00 AM – 4:00 PM", closed: false },
-    { id: "in-sun", day: "Sunday", time: "Closed", closed: true },
-  ];
+const indiaHours = [
+  { id: "in-wd", day: "Monday – Friday", time: "9:00 AM – 6:00 PM", closed: false },
+  { id: "in-sat", day: "Saturday", time: "10:00 AM – 4:00 PM", closed: false },
+  { id: "in-sun", day: "Sunday", time: "Closed", closed: true },
+];
 
-  const ukHours = [
-    { id: "uk-wd", day: "Monday – Friday", time: "9:30 AM – 6:00 PM", closed: false },
-    { id: "uk-sat", day: "Saturday", time: "10:00 AM – 04:00 AM", closed: false },
-    { id: "uk-sun", day: "Sunday", time: "Closed", closed: true },
-  ];
+const uaeHours = [
+  { id: "uae-wd", day: "Monday – Friday", time: "9:00 AM – 6:00 PM", closed: false },
+  { id: "uae-sat", day: "Saturday", time: "10:00 AM – 2:00 PM", closed: false },
+  { id: "uae-sun", day: "Sunday", time: "Closed", closed: true },
+];
+
+const ukHours = [
+  { id: "uk-wd", day: "Monday – Friday", time: "9:30 AM – 6:00 PM", closed: false },
+  { id: "uk-sat", day: "Saturday", time: "10:00 AM – 4:00 PM", closed: false },
+  { id: "uk-sun", day: "Sunday", time: "Closed", closed: true },
+];
 
   return (
     <div className="min-h-screen bg-[#f7f9ff]">

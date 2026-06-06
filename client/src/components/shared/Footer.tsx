@@ -46,6 +46,13 @@ const socialLinks = [
     href: "https://www.instagram.com/nawins_education/",
     label: "Instagram",
   },
+  {
+    id: "X",
+    icon: Twitter,
+    href: "https://www.x.com/nawinseducation/",
+    label: "X (formerly Twitter)",
+  },
+  
 ];
 
   const handleFooterNavigation = (href: string, label: string) => {
