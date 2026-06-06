@@ -15,6 +15,7 @@ export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
   const [indiaTime, setIndiaTime] = useState("");
   const [ukTime, setUkTime] = useState("");
+  const [uaeTime, setUAETime] = useState("");
 
   useEffect(() => {
     trackUtmParams();
@@ -102,8 +103,8 @@ const ukHours = [
               <MessageCircle className="w-4 h-4" />
               WhatsApp India
             </a>
-            <a
-              href="https://wa.me/447586261118"
+<a
+              href="https://wa.me/447778099414"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur hover:bg-white/20 transition-colors"
@@ -156,6 +157,18 @@ const ukHours = [
               </a>
             </Card>
 
+            {/* UAE Phone */}
+            <Card className="group relative overflow-hidden rounded-2xl border border-blue-100 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
+              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-green-50 text-green-600">
+                <span className="text-xl">🇦🇪</span>
+              </div>
+              <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-[#94a3b8]">UAE Office</p>
+              <p className="mb-1 font-bold text-[#07173d]">Dubai, UAE</p>
+              <a href="tel:+971589922059" className="text-sm font-semibold text-[#294fca] hover:underline">
+                +971 589922059
+              </a>
+            </Card>
+
             {/* Address */}
             <Card className="group relative overflow-hidden rounded-2xl border border-blue-100 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
               <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
@@ -179,10 +192,10 @@ const ukHours = [
         <div className="container">
           <div className="mb-10 text-center">
             <h2 className="text-3xl font-bold text-[#07173d]">Office Hours</h2>
-            <p className="mt-2 text-[#48608f]">We operate across two time zones to serve students in India and the UK</p>
+            <p className="mt-2 text-[#48608f]">We operate across three time zones to serve students in India, the UK, and UAE</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
 
             {/* India */}
             <Card className="overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm">
@@ -260,17 +273,59 @@ const ukHours = [
                 ))}
               </div>
               <div className="px-6 py-4 bg-[#f7f9ff]">
-                <a
-                  href="tel:+447586261118"
-                  className="flex items-center justify-between text-sm font-semibold text-[#294fca] hover:text-[#07173d] transition-colors"
-                >
-                  <span>📞 +44 7778 099414</span>
-                  <ArrowRight className="w-4 h-4" />
-                </a>
-              </div>
-            </Card>
+                 <a href="tel:+447586261118"
+                    className="flex items-center justify-between text-sm font-semibold text-[#294fca] hover:text-[#07173d] transition-colors"
+                  >
+                    <span>📞 +44 7778 099414</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                </div>
+              </Card>
 
-          </div>
+              {/* UAE */}
+              <Card className="overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm">
+                <div className="flex items-center justify-between bg-gradient-to-r from-green-50 to-emerald-50 border-b border-blue-50 px-6 py-4">
+                  <div className="flex items-center gap-3">
+                    <span className="text-3xl">🇦🇪</span>
+                    <div>
+                      <p className="font-bold text-[#07173d]">UAE Office</p>
+                      <p className="text-xs text-[#48608f]">Dubai · GST (UTC +4)</p>
+                    </div>
+                  </div>
+                  {uaeTime && (
+                    <div className="text-right">
+                      <p className="text-xs text-[#94a3b8] mb-0.5">Current Time</p>
+                      <span className="rounded-lg bg-green-100 px-3 py-1 text-xs font-mono font-bold text-green-700">
+                        {uaeTime}
+                      </span>
+                    </div>
+                  )}
+                </div>
+                <div className="divide-y divide-[#f0f4ff] px-6">
+                  {uaeHours.map((h) => (
+                    <div key={h.id} className="flex items-center justify-between py-4">
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-3.5 h-3.5 text-[#94a3b8]" />
+                        <span className="text-sm font-medium text-[#07173d]">{h.day}</span>
+                      </div>
+                      <span className={`text-sm font-semibold ${h.closed ? "text-red-500" : "text-[#294fca]"}`}>
+                        {h.closed ? "Closed" : `${h.time} GST`}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                <div className="px-6 py-4 bg-[#f7f9ff]">
+                  <a
+                    href="tel:+971589922059"
+                    className="flex items-center justify-between text-sm font-semibold text-[#294fca] hover:text-[#07173d] transition-colors"
+                  >
+                    <span>📞 +971 589922059</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                </div>
+              </Card>
+
+            </div>
         </div>
       </section>
 
@@ -314,7 +369,12 @@ const ukHours = [
                   <a href="https://wa.me/447778099414" target="_blank" rel="noopener noreferrer"
                     className="flex items-center gap-3 rounded-xl bg-white/10 px-4 py-3 text-sm font-semibold hover:bg-white/20 transition-colors">
                     <MessageCircle className="w-4 h-4 text-green-400" />
-                    WhatsApp UK &nbsp;·&nbsp; ++44 7778 099414
+                    WhatsApp UK &nbsp;·&nbsp; +44 7778 099414
+                  </a>
+                  <a href="https://wa.me/971589922059" target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-3 rounded-xl bg-white/10 px-4 py-3 text-sm font-semibold hover:bg-white/20 transition-colors">
+                    <MessageCircle className="w-4 h-4 text-green-400" />
+                    WhatsApp UAE &nbsp;·&nbsp; +971 589922059
                   </a>
                   <a href="mailto:info@nawinsedutech.com"
                     className="flex items-center gap-3 rounded-xl bg-white/10 px-4 py-3 text-sm font-semibold hover:bg-white/20 transition-colors">
