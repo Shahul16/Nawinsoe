@@ -1,0 +1,38 @@
+{
+  "generatedAt": "TODO",
+  "note": "Preliminary report from AST/regex-based relative import tracing only. Not guaranteed complete. Requires manual review for deletions.",
+  "scanned": {
+    "dirs": [
+      "client/src",
+      "server",
+      "shared",
+      "scripts",
+      "docs",
+      "reports"
+    ],
+    "fileCount": 173,
+    "entryFiles": [
+      "client/src/main.tsx",
+      "client/src/App.tsx",
+      "client/src/index.css",
+      "server/_core/index.ts",
+      "server/routes/app.router.ts",
+      "shared/const.ts"
+    ],
+    "reachableCount": 48,
+    "unusedZeroIncomingCandidatesCount": 122
+  },
+  "sampleUnusedZeroIncomingCandidates": [
+    "shared/types.ts",
+    "server/storage.ts",
+    "server/_core/map.ts",
+    "server/_core/llm.ts",
+    "docs/INTEGRATIONS.md",
+    "client/src/lib/crm.ts",
+    "reports/REPO_AUDIT.md",
+    "client/src/lib/trpc.ts",
+    "client/src/lib/jobs.ts",
+    "scripts/fetch-fonts.js"
+  ]
+}
+

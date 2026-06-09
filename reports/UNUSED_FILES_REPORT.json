@@ -1,0 +1,8 @@
+{
+  "generatedAt": "2026-06-05",
+  "note": "Report skeleton only. Current tracer output is preliminary and may miss references from dynamic imports, route-based lazy loading, and alias patterns beyond a small hardcoded set. No deletion-safe decisions should be made from this file.",
+  "SAFE_TO_DELETE": [],
+  "REQUIRES_REVIEW": [],
+  "MUST_KEEP": []
+}
+
