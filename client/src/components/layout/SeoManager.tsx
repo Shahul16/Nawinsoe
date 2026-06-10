@@ -6,7 +6,7 @@ const BASE_URL =
   typeof window !== "undefined" && window.location.hostname === "localhost"
     ? `${window.location.protocol}//${window.location.host}`
     : (import.meta.env.VITE_DOMAIN || "https://www.nawinsedutech.com");
-const LOGO_URL = "/manus-static/nawins_education_logo_v2.svg?v=2";
+const LOGO_URL = "/manus-static/nawins_education_logo.svg";
 
 type SchemaPayload = Record<string, any>;
 
@@ -279,7 +279,7 @@ streetAddress:
         name: "What is the success rate of Nawins Education?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Nawins Education has helped 1200+ students get admitted to leading universities with a 95% visa success rate.",
+text: "Nawins Education has helped 500+ students get admitted to leading universities with a 95% visa success rate.",
         },
       },
     ],

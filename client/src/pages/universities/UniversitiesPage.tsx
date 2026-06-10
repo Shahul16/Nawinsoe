@@ -108,9 +108,13 @@ export default function Universities() {
                     <Button
                       variant="outline"
                       className="w-full border-blue-200 text-[#17337d] hover:bg-blue-50"
-                      onClick={() => {
-                        toast.info("Counseling team will help shortlist this university.");
-                        setLocation("/contact");
+onClick={() => {
+                        if ((uni as any).website) {
+                          window.open((uni as any).website, "_blank", "noopener,noreferrer");
+                        } else {
+                          toast.info("Counseling team will help shortlist this university.");
+                          setLocation("/contact");
+                        }
                       }}
                     >
                       Learn More

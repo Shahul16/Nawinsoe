@@ -52,7 +52,7 @@ export default function Home() {
 
               <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-md">
                 <div className="bg-white/5 rounded-xl p-4 text-center">
-                  <p className="text-2xl font-bold text-white">5000+</p>
+                  <p className="text-2xl font-bold text-white">500+</p>
                   <p className="text-sm text-white/80">Students Guided</p>
                 </div>
                 <div className="bg-white/5 rounded-xl p-4 text-center">
@@ -86,11 +86,11 @@ export default function Home() {
                       <p className="text-xs text-[#3a4d7a]">Visa Success</p>
                     </div>
                     <div className="rounded-xl bg-white/60 px-2 py-3">
-                      <p className="text-lg font-bold text-[#04133a]">12+</p>
+                      <p className="text-lg font-bold text-[#04133a]">3+</p>
                       <p className="text-xs text-[#3a4d7a]">Years</p>
                     </div>
                     <div className="rounded-xl bg-white/60 px-2 py-3">
-                      <p className="text-lg font-bold text-[#04133a]">5000+</p>
+                      <p className="text-lg font-bold text-[#04133a]">500+</p>
                       <p className="text-xs text-[#3a4d7a]">Students</p>
                     </div>
                   </div>
