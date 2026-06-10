@@ -14,11 +14,13 @@ const getStageNewLeadId = () => process.env.HUBSPOT_DEAL_STAGE_NEW_LEAD_ID;
 const getStageCounsellingId = () => process.env.HUBSPOT_DEAL_STAGE_COUNSELLING_SCHEDULED_ID;
 
 const stageIdForContext = (context: {
-  routeKey: "contact" | "premium-home-form" | "book-consultation";
+  routeKey: "contact" | "premium-home-form" | "book-consultation" | "careers";
 }) => {
   if (context.routeKey === "book-consultation") return getStageCounsellingId();
+  if (context.routeKey === "careers") return process.env.HUBSPOT_DEAL_STAGE_CAREERS_ID;
   return getStageNewLeadId();
 };
+
 
 const HUBSPOT_BASE = "https://api.hubapi.com";
 
@@ -173,10 +175,11 @@ async function associateDealToContact(dealId: string, contactId: string): Promis
 }
 
 function getStageIdForRouteKey(
-  routeKey: "contact" | "premium-home-form" | "book-consultation"
+  routeKey: "contact" | "premium-home-form" | "book-consultation" | "careers"
 ): string | undefined {
   return stageIdForContext({ routeKey });
 }
+
 
 function hubspotFail(message: string, err: unknown): never {
   safeLogHubspotError(err, message);
@@ -314,9 +317,10 @@ async function associateDealToContactOrThrow(
 }
 
 export async function upsertContactAndCreateDeal(params: {
-  routeKey: "contact" | "premium-home-form" | "book-consultation";
+  routeKey: "contact" | "premium-home-form" | "book-consultation" | "careers";
   lead: HubspotLeadContext;
 }): Promise<void> {
+
   try {
     const contactId = await upsertContactByEmail(params.lead);
     if (!contactId) return;

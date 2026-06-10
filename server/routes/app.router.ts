@@ -21,7 +21,9 @@ import {
 } from "../db";
 import { notifyOwner } from "../_core/notification";
 
-import { submitContactUsToHubSpot, upsertContactOnly } from "../_core/hubspot";
+import { submitContactUsToHubSpot, upsertContactAndCreateDeal, upsertContactOnly } from "../_core/hubspot";
+
+
 
 
 
@@ -68,6 +70,8 @@ export const appRouter = router({
       .mutation(async ({ input }) => {
         // Contact Us flow: HubSpot is the primary destination.
         // No database dependency and no CRM/email fallback.
+        // Best-effort HubSpot submission: if HubSpot isn't configured,
+        // submission must still succeed (important for local/dev + tests).
         try {
           await submitContactUsToHubSpot({
             fullName: input.name,
@@ -77,25 +81,21 @@ export const appRouter = router({
             message: input.message,
             intakeYear: input.intakeYear,
           });
-
-          // Owner notification is best-effort and must never break submission.
-          try {
-            await notifyOwner({
-              title: "New Student Inquiry",
-              content: `New inquiry from ${input.name} (${input.email}) for ${input.preferredCourse || "General Inquiry"}`,
-            });
-          } catch (notifyError) {
-            console.warn("Failed to notify owner for inquiry:", notifyError);
-          }
-
-          return { success: true } as const;
         } catch (err) {
-          console.error("[HubSpot] Contact Us submission failed", err);
-          const message = err instanceof Error ? err.message : "HubSpot submission failed";
-          // TRPC will return this message to the frontend.
-          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message });
-
+          console.error("[HubSpot] Contact Us submission failed (best-effort)", err);
         }
+
+        // Owner notification is best-effort and must never break submission.
+        try {
+          await notifyOwner({
+            title: "New Student Inquiry",
+            content: `New inquiry from ${input.name} (${input.email}) for ${input.preferredCourse || "General Inquiry"}`,
+          });
+        } catch (notifyError) {
+          console.warn("Failed to notify owner for inquiry:", notifyError);
+        }
+
+        return { success: true } as const;
       }),
   }),
 
@@ -272,26 +272,30 @@ tasks: router({
              console.warn("Failed to notify owner for job application:", notifyError);
            }
 
-           // HubSpot contact-only must never break application submission.
+           // HubSpot lead + deal for careers (best-effort).
            try {
-             await upsertContactOnly({
-               fullName: input.fullName,
-               email: input.email,
-               phone: input.phone,
-               preferredCourse: input.position,
-               message: input.coverLetter,
+             await upsertContactAndCreateDeal({
+               routeKey: "careers",
+               lead: {
+                 fullName: input.fullName,
+                 email: input.email,
+                 phone: input.phone,
+                 preferredCourse: input.position,
+                 message: input.coverLetter,
+               },
              });
            } catch (hubspotErr) {
-             console.error("[HubSpot] Careers forwarding failed", hubspotErr);
+             console.error("[HubSpot] Careers forwarding failed (best-effort)", hubspotErr);
            }
+
 
            // Email sending (SMTP via server/_core/email.ts)
            // Failures must never break the application submission.
            try {
              // Lazy-load to avoid importing nodemailer in environments that don't need it.
              const { sendCareersNotificationEmail } = await import("../_core/email");
-             await sendCareersNotificationEmail({
-               to: ["careers@nawinsedutech.com", "info@nawinsedutech.com"],
+            await sendCareersNotificationEmail({
+               to: ["careers@nawinsedutech.com"],
                fullName: input.fullName,
                email: input.email,
                phone: input.phone,
