@@ -18,8 +18,28 @@ export default function Contact() {
   const [uaeTime, setUAETime] = useState("");
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    const subjectFromUrl = params.get("subject") ?? "";
+    const leadSourceFromUrl = params.get("lead_source") ?? "";
+    const jobRoleFromUrl = params.get("job_role") ?? "";
+    const landingPageFromUrl = params.get("landing_page") ?? "";
+
+    // Track utm params (event-only) as before
     trackUtmParams();
-    trackEvent("contact_page_view");
+
+    // Track contact page view with career/student prefill metadata (if present)
+    trackEvent("contact_page_view", {
+      lead_source: leadSourceFromUrl || undefined,
+      job_role: jobRoleFromUrl || undefined,
+      landing_page: landingPageFromUrl || undefined,
+      subject: subjectFromUrl || undefined,
+    });
+
+    // Prefill subject; preserve normal editing
+    if (subjectFromUrl) {
+      setFormData((prev) => ({ ...prev, subject: subjectFromUrl }));
+    }
   }, []);
 
   useEffect(() => {
@@ -42,14 +62,37 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await createInquiry.mutateAsync({
+      const params = new URLSearchParams(window.location.search);
+
+      const payload = {
         name: formData.name,
         email: formData.email,
         phone: formData.phone || undefined,
-        preferredCourse: formData.subject || "Contact Inquiry",
+
+        // Primary inquiry subject (not preferredCourse)
+        subject: formData.subject || "Contact Inquiry",
         message: formData.message,
+
+        // Lead source tracking for reporting
+        lead_source: params.get("lead_source") ?? undefined,
+        job_role: params.get("job_role") ?? undefined,
+        landing_page: params.get("landing_page") ?? undefined,
+
+        utm_source: params.get("utm_source") ?? undefined,
+        utm_medium: params.get("utm_medium") ?? undefined,
+        utm_campaign: params.get("utm_campaign") ?? undefined,
+      };
+
+      await createInquiry.mutateAsync(payload);
+
+      trackLeadCapture({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        preferredCourse: payload.subject, // keep current client signature; server now stores subject
+        university: undefined,
       });
-      trackLeadCapture({ name: formData.name, email: formData.email, phone: formData.phone, preferredCourse: formData.subject });
+
       toast.success("Message sent successfully.", { description: "Our team will contact you within 24 hours." });
       setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
     } catch (err) {
@@ -115,6 +158,96 @@ const ukHours = [
               <MessageCircle className="w-4 h-4" />
               WhatsApp UK
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Google Maps + Google Business Profile ───────────────── */}
+      <section className="py-16 bg-[#f7f9ff]">
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            <div className="lg:col-span-2">
+              <h2 className="text-2xl font-bold text-[#040F23] mb-4">
+                Visit Our Office
+              </h2>
+
+              <div className="overflow-hidden rounded-2xl border border-blue-100/70 bg-white shadow-sm">
+                {/* Google Maps embed (address-based) */}
+                <iframe
+                  title="Nawins Education Google Maps"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="w-full h-[320px] md:h-[400px]"
+                  src="https://www.google.com/maps?q=No%2059%2F3%20-%2013%2F4%2C%203rd%20Floor%2C%20HDFC%20Bank%20Upstairs%2C%20Marappa%20Gounder%20Plaza%2C%20West%20Car%20Street%2C%20Tiruchengode%20Namakkal%20637211&output=embed"
+                />
+              </div>
+
+              <p className="mt-4 text-sm text-[#48608f]">
+                Use the map above for directions. We’re happy to help you with your consultation planning.
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-xl font-bold text-[#040F23] mb-2">
+                  Google Business Profile
+                </h3>
+                <p className="text-sm text-[#48608f] mb-4">
+                  See ratings, reviews, and get quick contact actions.
+                </p>
+
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=No%2059%2F3%20-%2013%2F4%2C%203rd%20Floor%2C%20HDFC%20Bank%20Upstairs%2C%20Marappa%20Gounder%20Plaza%2C%20West%20Car%20Street%2C%20Tiruchengode%2C%20Namakkal%20637211"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block rounded-2xl border border-blue-100/70 bg-white p-5 shadow-sm hover:shadow-md transition"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#0B1E4D] text-[#C59D50] font-bold">
+                      G
+                    </span>
+                    <div>
+                      <p className="font-semibold text-[#040F23]">Open on Google Maps</p>
+                      <p className="text-xs text-[#48608f]">Reviews & directions</p>
+                    </div>
+                  </div>
+                </a>
+
+                <p className="mt-2 text-xs text-[#48608f]">
+                  If your GBP link isn’t set yet, replace the placeholder Google Maps CID URL with your real GBP.
+                </p>
+              </div>
+
+              {/* WhatsApp CTA (single, prominent) */}
+              <div className="rounded-2xl bg-gradient-to-r from-[#0B1E4D] to-[#040F23] p-6 text-white border border-white/10">
+                <h3 className="text-xl font-bold mb-2">
+                  WhatsApp for quick counselling
+                </h3>
+                <p className="text-sm text-blue-100/90 mb-4">
+                  Choose your region and message us instantly.
+                </p>
+                <div className="flex flex-col gap-3">
+                  <a
+                    href="https://wa.me/919943738177"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#C59D50] px-4 py-3 font-semibold text-[#040F23] hover:opacity-95 transition"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    WhatsApp India
+                  </a>
+                  <a
+                    href="https://wa.me/447778099414"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 py-3 font-semibold text-white hover:bg-white/20 transition"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    WhatsApp UK
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

@@ -16,7 +16,7 @@ export default function ContactFormPremium(){
         name: data.name,
         email: data.email,
         phone: data.phone || undefined,
-        preferredCourse: data.course || 'Premium Home Form',
+        subject: data.course || 'Premium Home Form',
         message: `[premium-home-form]\nDestination: ${data.destination}\n${data.message || ''}`.trim(),
       });
       toast.success('Inquiry sent.');

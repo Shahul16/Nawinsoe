@@ -42,30 +42,38 @@ export default function Home() {
 
               {/* CTA Buttons */}
               <div className="mb-8 flex flex-wrap gap-3">
-                <Button onClick={() => setLocation('/contact')} className="rounded-full bg-gradient-to-r from-[#C59D50] to-[#B78D42] px-8 py-3 font-semibold text-[#040F23] shadow-lg">
+                <Button
+                  onClick={() => setLocation("/contact?subject=General%20Enquiry&lead_source=homepage")}
+                  className="rounded-full bg-gradient-to-r from-[#C59D50] to-[#C59D50] px-8 py-3 font-semibold text-[#040F23] shadow-lg hover:opacity-95 transition"
+                >
                   Apply Now
                 </Button>
-                <Button onClick={() => setLocation('/contact')} variant="outline" className="rounded-full border border-white/20 bg-transparent px-6 py-3 text-white">
+                <Button
+                  onClick={() => setLocation("/contact?subject=Consultation%20Booking&lead_source=homepage")}
+                  variant="outline"
+                  className="rounded-full border border-white/20 bg-transparent px-6 py-3 text-white hover:border-[#C59D50]/70 hover:text-[#C59D50] transition"
+                >
                   Book Consultation
                 </Button>
               </div>
 
+              {/* Approved metrics */}
               <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-md">
-                <div className="bg-white/5 rounded-xl p-4 text-center">
+                <div className="bg-white/5 rounded-xl p-4 text-center border border-white/10">
                   <p className="text-2xl font-bold text-white">500+</p>
                   <p className="text-sm text-white/80">Students Guided</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4 text-center">
+                <div className="bg-white/5 rounded-xl p-4 text-center border border-white/10">
                   <p className="text-2xl font-bold text-white">100+</p>
                   <p className="text-sm text-white/80">University Partners</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4 text-center">
+                <div className="bg-white/5 rounded-xl p-4 text-center border border-white/10">
                   <p className="text-2xl font-bold text-white">15+</p>
-                  <p className="text-sm text-white/80">Destination Countries</p>
+                  <p className="text-sm text-white/80">Study Destinations</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4 text-center">
+                <div className="bg-white/5 rounded-xl p-4 text-center border border-white/10">
                   <p className="text-2xl font-bold text-white">95%</p>
-                  <p className="text-sm text-white/80">Visa Success</p>
+                  <p className="text-sm text-white/80">Visa Success Rate</p>
                 </div>
               </div>
             </div>

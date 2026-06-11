@@ -2,18 +2,54 @@ import Navigation from "@/components/navigation/Navigation";
 import Footer from "@/components/layout/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Award, Users, Globe, Zap, Target, BookOpen, Shield, MapPin, User, Calendar, GraduationCap, Linkedin, ExternalLink } from "lucide-react";
+import { Award, Users, Globe, Zap, Target, BookOpen, Shield, MapPin, User, Calendar, GraduationCap } from "lucide-react";
 import { useLocation } from "wouter";
+import { useEffect, useState } from "react";
 
 export default function About() {
   const [, setLocation] = useLocation();
 
-  const stats = [
-    { icon: Users, value: "500+", label: "Students Counseled" },
-    { icon: Globe, value: "15+", label: "Countries Covered" },
-    { icon: GraduationCap, value: "50+", label: "Partner Universities" },
-    { icon: Calendar, value: "3+", label: "Years Experience" }
-  ];
+  function useAnimatedNumber(target: number) {
+    const [value, setValue] = useState(0);
+
+    useEffect(() => {
+      const durationMs = 1200;
+      const start = performance.now();
+
+      let raf = 0;
+      const tick = (now: number) => {
+        const elapsed = now - start;
+        const progress = Math.min(1, elapsed / durationMs);
+        const next = Math.round(target * progress);
+        setValue(next);
+
+        if (progress < 1) {
+          raf = requestAnimationFrame(tick);
+        }
+      };
+
+      raf = requestAnimationFrame(tick);
+      return () => cancelAnimationFrame(raf);
+    }, [target]);
+
+    return value;
+  }
+
+  function ImpactCard(props: { target: number; icon: React.ComponentType<any>; label: string; suffix: string }) {
+    const AnimatedValue = useAnimatedNumber(props.target);
+    const Icon = props.icon;
+
+    return (
+      <Card className="p-6 text-center border border-white/10 bg-white/5">
+        <Icon className="w-10 h-10 text-[#C59D50] mx-auto mb-3" />
+        <p className="text-3xl font-bold text-white mb-1">
+          {AnimatedValue}
+          {props.suffix}
+        </p>
+        <p className="text-sm text-blue-100/80">{props.label}</p>
+      </Card>
+    );
+  }
 
   const teamMembers = [
     {
@@ -83,19 +119,24 @@ export default function About() {
         </div>
       </section>
 
-      {/* Statistics Section */}
-      <section className="py-16 bg-[#f7f9ff]">
+      {/* Our Impact (Premium + Animated Counters) */}
+      <section className="py-20 bg-[#040F23]">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#07173d] mb-4">Our Impact</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Impact</h2>
+            <p className="text-blue-100/90 max-w-2xl mx-auto">
+              Built on guidance that turns admissions into real outcomes—backed by measurable results.
+            </p>
           </div>
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((stat, idx) => (
-              <Card key={idx} className="p-6 text-center border border-blue-100/70 bg-white">
-                <stat.icon className="w-10 h-10 text-[#17337d] mx-auto mb-3" />
-                <p className="text-3xl font-bold text-[#07173d] mb-1">{stat.value}</p>
-                <p className="text-sm text-[#48608f]">{stat.label}</p>
-              </Card>
+            {[
+              { target: 500, icon: Users, label: "Students Guided", suffix: "+" },
+              { target: 100, icon: GraduationCap, label: "University Partners", suffix: "+" },
+              { target: 15, icon: Globe, label: "Study Destinations", suffix: "+" },
+              { target: 95, icon: Shield, label: "Visa Success Rate", suffix: "%" },
+            ].map((m) => (
+              <ImpactCard key={m.label} {...m} />
             ))}
           </div>
         </div>

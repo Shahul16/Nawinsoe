@@ -35,7 +35,8 @@ export default function BookConsultation() {
         name: formData.name,
         email: formData.email,
         phone: formData.phone || undefined,
-        preferredCourse: formData.courseInterest || "Consultation Booking",
+        // Primary inquiry subject for CRM/reporting
+        subject: formData.courseInterest || "Consultation Booking",
         message: `Country: ${formData.countryInterest}\nPreferred: ${formData.preferredDate} ${formData.preferredTime}\nNotes: ${formData.notes}`
       });
 

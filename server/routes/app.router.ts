@@ -62,9 +62,23 @@ export const appRouter = router({
           name: z.string().min(1, "Name is required"),
           email: z.string().email("Valid email is required"),
           phone: z.string().optional(),
-          preferredCourse: z.string().optional(),
+
+          // Primary inquiry subject (student inquiry OR career application)
+          subject: z.string().optional(),
+
+          // Lead source tracking for reporting
+          lead_source: z.string().optional(),
+          job_role: z.string().optional(),
+          landing_page: z.string().optional(),
+
+          // Optional message + intake
           message: z.string().max(2000).optional(),
           intakeYear: z.number().optional(),
+
+          // UTM tracking (HubSpot contact properties)
+          utm_source: z.string().optional(),
+          utm_medium: z.string().optional(),
+          utm_campaign: z.string().optional(),
         })
       )
       .mutation(async ({ input }) => {
@@ -77,9 +91,21 @@ export const appRouter = router({
             fullName: input.name,
             email: input.email,
             phone: input.phone,
-            preferredCourse: input.preferredCourse,
+
+            // Store inquiry subject as primary reporting field
+            subject: input.subject,
+
+            // Reporting fields
+            lead_source: input.lead_source,
+            job_role: input.job_role,
+            landing_page: input.landing_page,
+
             message: input.message,
             intakeYear: input.intakeYear,
+
+            utm_source: input.utm_source,
+            utm_medium: input.utm_medium,
+            utm_campaign: input.utm_campaign,
           });
         } catch (err) {
           console.error("[HubSpot] Contact Us submission failed (best-effort)", err);
@@ -89,7 +115,7 @@ export const appRouter = router({
         try {
           await notifyOwner({
             title: "New Student Inquiry",
-            content: `New inquiry from ${input.name} (${input.email}) for ${input.preferredCourse || "General Inquiry"}`,
+            content: `New inquiry from ${input.name} (${input.email}) for ${input.subject || "General Inquiry"}`,
           });
         } catch (notifyError) {
           console.warn("Failed to notify owner for inquiry:", notifyError);
@@ -236,7 +262,7 @@ tasks: router({
        }),
    }),
 
-   jobApplications: router({
+  jobApplications: router({
      create: publicProcedure
        .input(
          z.object({
@@ -248,6 +274,12 @@ tasks: router({
            position: z.string().min(1, "Position is required"),
            resumeFile: z.string().optional(),
            coverLetter: z.string().optional(),
+
+           // Lead source tracking (HubSpot contact properties)
+           utm_source: z.string().optional(),
+           utm_medium: z.string().optional(),
+           utm_campaign: z.string().optional(),
+           landing_page: z.string().optional(),
          })
        )
        .mutation(async ({ input }) => {
@@ -272,42 +304,53 @@ tasks: router({
              console.warn("Failed to notify owner for job application:", notifyError);
            }
 
-           // HubSpot lead + deal for careers (best-effort).
-           try {
-             await upsertContactAndCreateDeal({
-               routeKey: "careers",
-               lead: {
-                 fullName: input.fullName,
-                 email: input.email,
-                 phone: input.phone,
-                 preferredCourse: input.position,
-                 message: input.coverLetter,
-               },
-             });
-           } catch (hubspotErr) {
-             console.error("[HubSpot] Careers forwarding failed (best-effort)", hubspotErr);
-           }
+          // HubSpot lead + deal for careers (best-effort).
+          try {
+            await upsertContactAndCreateDeal({
+              routeKey: "careers",
+              lead: {
+                fullName: input.fullName,
+                email: input.email,
+                phone: input.phone,
 
+                // Primary inquiry subject for CRM reporting
+                subject: input.position,
 
-           // Email sending (SMTP via server/_core/email.ts)
-           // Failures must never break the application submission.
-           try {
-             // Lazy-load to avoid importing nodemailer in environments that don't need it.
-             const { sendCareersNotificationEmail } = await import("../_core/email");
+                // Reporting fields for separating careers vs student enquiries
+                lead_source: "careers",
+                job_role: input.position,
+
+                message: input.coverLetter,
+
+                utm_source: input.utm_source,
+                utm_medium: input.utm_medium,
+                utm_campaign: input.utm_campaign,
+                landing_page: input.landing_page,
+              },
+            });
+          } catch (hubspotErr) {
+            console.error("[HubSpot] Careers forwarding failed (best-effort)", hubspotErr);
+          }
+
+          // Email sending (SMTP via server/_core/email.ts)
+          // Failures must never break the application submission.
+          try {
+            // Lazy-load to avoid importing nodemailer in environments that don't need it.
+            const { sendCareersNotificationEmail } = await import("../_core/email");
             await sendCareersNotificationEmail({
-               to: ["careers@nawinsedutech.com"],
-               fullName: input.fullName,
-               email: input.email,
-               phone: input.phone,
-               city: input.city,
-               position: input.position,
-               experience: input.experience,
-               coverLetter: input.coverLetter,
-               resumeFile: input.resumeFile,
-             });
-           } catch (emailErr) {
-             console.error("[Email] Careers notification failed", emailErr);
-           }
+              to: ["careers@nawinsedutech.com"],
+              fullName: input.fullName,
+              email: input.email,
+              phone: input.phone,
+              city: input.city,
+              position: input.position,
+              experience: input.experience,
+              coverLetter: input.coverLetter,
+              resumeFile: input.resumeFile,
+            });
+          } catch (emailErr) {
+            console.error("[Email] Careers notification failed", emailErr);
+          }
 
            return { success: true, data: result } as const;
 

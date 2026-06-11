@@ -2,9 +2,30 @@ export type HubspotLeadContext = {
   fullName: string;
   email: string;
   phone?: string | undefined;
-  preferredCourse?: string | undefined;
+
+  /**
+   * Primary inquiry subject.
+   * Examples:
+   *  - Application for Student Counsellor
+   *  - UK Masters Enquiry
+   *  - Scholarship Enquiry
+   *
+   * Keep careers + student enquiries separated via lead_source/job_role, not by preferredCourse.
+   */
+  subject?: string | undefined;
+
   message?: string | undefined;
   intakeYear?: number | undefined;
+
+  // Reporting properties for HubSpot
+  lead_source?: string | undefined; // e.g. careers, website, newsletter, etc
+  job_role?: string | undefined; // e.g. Student Counsellor
+  landing_page?: string | undefined;
+
+  // Marketing tracking (stored as HubSpot contact properties)
+  utm_source?: string | undefined;
+  utm_medium?: string | undefined;
+  utm_campaign?: string | undefined;
 };
 
 // Lazy env getters — resolved at call-time, not module-load time
@@ -13,11 +34,17 @@ const getPipelineId = () => process.env.HUBSPOT_DEAL_PIPELINE_ID || "default";
 const getStageNewLeadId = () => process.env.HUBSPOT_DEAL_STAGE_NEW_LEAD_ID;
 const getStageCounsellingId = () => process.env.HUBSPOT_DEAL_STAGE_COUNSELLING_SCHEDULED_ID;
 
+const getStageCareersId = () =>
+  // Required by your task
+  process.env.HUBSPOT_CAREERS_STAGE_ID ??
+  // Backward compatible with existing env naming in this repo
+  process.env.HUBSPOT_DEAL_STAGE_CAREERS_ID;
+
 const stageIdForContext = (context: {
   routeKey: "contact" | "premium-home-form" | "book-consultation" | "careers";
 }) => {
   if (context.routeKey === "book-consultation") return getStageCounsellingId();
-  if (context.routeKey === "careers") return process.env.HUBSPOT_DEAL_STAGE_CAREERS_ID;
+  if (context.routeKey === "careers") return getStageCareersId();
   return getStageNewLeadId();
 };
 
@@ -110,9 +137,19 @@ function buildContactProperties(input: HubspotLeadContext): Record<string, unkno
   };
 
   // Map to standard HubSpot contact properties
-  if (input.preferredCourse) properties["jobtitle"] = input.preferredCourse;   // repurposed as course interest
-  if (input.intakeYear) properties["hs_persona"] = `Intake ${input.intakeYear}`; // intake year as persona tag
-  if (input.message) properties["message"] = input.message;                     // standard "message" property
+  if (input.subject) properties["subject"] = input.subject; // dedicated property for reporting
+  if (input.intakeYear) properties["hs_persona"] = `Intake ${input.intakeYear}`; // persona tag
+  if (input.message) properties["message"] = input.message; // standard "message" property
+
+  if (input.lead_source) properties["lead_source"] = String(input.lead_source);
+  if (input.job_role) properties["job_role"] = String(input.job_role);
+
+  // Marketing tracking (stored as contact properties)
+  const anyInput = input as any;
+  if (anyInput.utm_source) properties["utm_source"] = String(anyInput.utm_source);
+  if (anyInput.utm_medium) properties["utm_medium"] = String(anyInput.utm_medium);
+  if (anyInput.utm_campaign) properties["utm_campaign"] = String(anyInput.utm_campaign);
+  if (anyInput.landing_page) properties["landing_page"] = String(anyInput.landing_page);
 
   return properties;
 }
@@ -149,7 +186,7 @@ async function createDealForContact(params: {
   const dealProperties: Record<string, unknown> = {
     pipeline: getPipelineId(),
     dealstage: params.stageId,
-    dealname: `${params.lead.fullName} - ${params.lead.preferredCourse || "Inquiry"}`,
+    dealname: `${params.lead.fullName} - ${params.lead.subject || "Inquiry"}`,
   };
 
   const created = await hubspotFetch<HubspotDealCreateResponse>(
@@ -287,7 +324,7 @@ async function createDealForContactOrThrow(params: {
   const dealProperties: Record<string, unknown> = {
     pipeline: getPipelineId(),
     dealstage: params.stageId,
-    dealname: `${params.lead.fullName} - ${params.lead.preferredCourse || "Inquiry"}`,
+    dealname: `${params.lead.fullName} - ${params.lead.subject || "Inquiry"}`,
   };
 
   const created = await hubspotFetchOrThrow<{ id: string }>(
