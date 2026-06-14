@@ -1,4 +1,3 @@
-import { TRPCError } from "@trpc/server";
 import { ENV } from "./env";
 
 export type NotificationPayload = {
@@ -9,77 +8,38 @@ export type NotificationPayload = {
 const TITLE_MAX_LENGTH = 1200;
 const CONTENT_MAX_LENGTH = 20000;
 
-const trimValue = (value: string): string => value.trim();
 const isNonEmptyString = (value: unknown): value is string =>
   typeof value === "string" && value.trim().length > 0;
 
 const buildEndpointUrl = (baseUrl: string): string => {
-  const normalizedBase = baseUrl.endsWith("/")
-    ? baseUrl
-    : `${baseUrl}/`;
+  const normalizedBase = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
   return new URL(
     "webdevtoken.v1.WebDevService/SendNotification",
     normalizedBase
   ).toString();
 };
 
-const validatePayload = (input: NotificationPayload): NotificationPayload => {
-  if (!isNonEmptyString(input.title)) {
-    throw new TRPCError({
-      code: "BAD_REQUEST",
-      message: "Notification title is required.",
-    });
-  }
-  if (!isNonEmptyString(input.content)) {
-    throw new TRPCError({
-      code: "BAD_REQUEST",
-      message: "Notification content is required.",
-    });
-  }
-
-  const title = trimValue(input.title);
-  const content = trimValue(input.content);
-
-  if (title.length > TITLE_MAX_LENGTH) {
-    throw new TRPCError({
-      code: "BAD_REQUEST",
-      message: `Notification title must be at most ${TITLE_MAX_LENGTH} characters.`,
-    });
-  }
-
-  if (content.length > CONTENT_MAX_LENGTH) {
-    throw new TRPCError({
-      code: "BAD_REQUEST",
-      message: `Notification content must be at most ${CONTENT_MAX_LENGTH} characters.`,
-    });
-  }
-
-  return { title, content };
-};
-
 /**
- * Dispatches a project-owner notification (email/internal alert).
- * Returns `true` if the request was accepted, `false` when the upstream service
- * cannot be reached (callers can fall back to email/slack). Validation errors
- * bubble up as TRPC errors so callers can fix the payload.
+ * FIXED: Removed all TRPCError usage.
+ * TRPCError thrown inside a tRPC procedure propagates to tRPC's own error handler
+ * even when wrapped in try/catch — causing every form submission to fail when
+ * BUILT_IN_FORGE_API_URL is not configured.
+ * Now returns false (no-op) when the service is not configured.
  */
 export async function notifyOwner(
   payload: NotificationPayload
 ): Promise<boolean> {
-  const { title, content } = validatePayload(payload);
-
-  if (!ENV.forgeApiUrl) {
-    throw new TRPCError({
-      code: "INTERNAL_SERVER_ERROR",
-      message: "Notification service URL is not configured.",
-    });
+  if (!isNonEmptyString(payload.title) || !isNonEmptyString(payload.content)) {
+    console.warn("[Notification] Invalid payload — skipping");
+    return false;
   }
 
-  if (!ENV.forgeApiKey) {
-    throw new TRPCError({
-      code: "INTERNAL_SERVER_ERROR",
-      message: "Notification service API key is not configured.",
-    });
+  const title = payload.title.trim().slice(0, TITLE_MAX_LENGTH);
+  const content = payload.content.trim().slice(0, CONTENT_MAX_LENGTH);
+
+  if (!ENV.forgeApiUrl || !ENV.forgeApiKey) {
+    console.warn("[Notification] BUILT_IN_FORGE_API_URL/KEY not configured — skipping");
+    return false;
   }
 
   const endpoint = buildEndpointUrl(ENV.forgeApiUrl);
@@ -98,11 +58,7 @@ export async function notifyOwner(
 
     if (!response.ok) {
       const detail = await response.text().catch(() => "");
-      console.warn(
-        `[Notification] Failed to notify owner (${response.status} ${response.statusText})${
-          detail ? `: ${detail}` : ""
-        }`
-      );
+      console.warn(`[Notification] Failed (${response.status})${detail ? `: ${detail}` : ""}`);
       return false;
     }
 
