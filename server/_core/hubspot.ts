@@ -2,7 +2,7 @@ export type HubspotLeadContext = {
   fullName: string;
   email: string;
   phone?: string | undefined;
-
+ 
   /**
    * Primary inquiry subject.
    * Examples:
@@ -13,33 +13,33 @@ export type HubspotLeadContext = {
    * Keep careers + student enquiries separated via lead_source/job_role, not by preferredCourse.
    */
   subject?: string | undefined;
-
+ 
   message?: string | undefined;
   intakeYear?: number | undefined;
-
+ 
   // Reporting properties for HubSpot
   lead_source?: string | undefined; // e.g. careers, website, newsletter, etc
   job_role?: string | undefined; // e.g. Student Counsellor
   landing_page?: string | undefined;
-
+ 
   // Marketing tracking (stored as HubSpot contact properties)
   utm_source?: string | undefined;
   utm_medium?: string | undefined;
   utm_campaign?: string | undefined;
 };
-
+ 
 // Lazy env getters — resolved at call-time, not module-load time
 const getHubspotPat = () => process.env.HUBSPOT_ACCESS_TOKEN;
 const getPipelineId = () => process.env.HUBSPOT_DEAL_PIPELINE_ID || "default";
 const getStageNewLeadId = () => process.env.HUBSPOT_DEAL_STAGE_NEW_LEAD_ID;
 const getStageCounsellingId = () => process.env.HUBSPOT_DEAL_STAGE_COUNSELLING_SCHEDULED_ID;
-
+ 
 const getStageCareersId = () =>
   // Required by your task
   process.env.HUBSPOT_CAREERS_STAGE_ID ??
   // Backward compatible with existing env naming in this repo
   process.env.HUBSPOT_DEAL_STAGE_CAREERS_ID;
-
+ 
 const stageIdForContext = (context: {
   routeKey: "contact" | "premium-home-form" | "book-consultation" | "careers";
 }) => {
@@ -47,18 +47,18 @@ const stageIdForContext = (context: {
   if (context.routeKey === "careers") return getStageCareersId();
   return getStageNewLeadId();
 };
-
-
+ 
+ 
 const HUBSPOT_BASE = "https://api.hubapi.com";
-
+ 
 function safeLogHubspotError(err: unknown, message: string) {
   console.error(`[HubSpot] ${message}`, err);
 }
-
+ 
 async function hubspotFetch<T>(path: string, init: RequestInit): Promise<T | null> {
   const HUBSPOT_PAT = getHubspotPat();
   if (!HUBSPOT_PAT) return null;
-
+ 
   try {
     const res = await fetch(`${HUBSPOT_BASE}${path}`, {
       ...init,
@@ -68,32 +68,32 @@ async function hubspotFetch<T>(path: string, init: RequestInit): Promise<T | nul
         "Content-Type": "application/json",
       },
     });
-
+ 
     if (!res.ok) {
       const text = await res.text().catch(() => "");
       safeLogHubspotError({ status: res.status, text }, `Request failed: ${path}`);
       return null;
     }
-
+ 
     return (await res.json()) as T;
   } catch (err) {
     safeLogHubspotError(err, `Network error: ${path}`);
     return null;
   }
 }
-
+ 
 type HubspotContact = {
   id: string | number;
   properties?: Record<string, unknown>;
 };
-
+ 
 type SearchContactsResponse = {
   results: HubspotContact[];
 };
-
+ 
 async function findContactIdByEmail(email: string): Promise<string | null> {
   if (!email) return null;
-
+ 
   const body = {
     filterGroups: [
       {
@@ -111,17 +111,17 @@ async function findContactIdByEmail(email: string): Promise<string | null> {
     limit: 1,
     after: 0,
   };
-
+ 
   const data = await hubspotFetch<SearchContactsResponse>(
     `/crm/v3/objects/contacts/search`,
     { method: "POST", body: JSON.stringify(body) }
   );
-
+ 
   const contact = data?.results?.[0];
   if (!contact?.id) return null;
   return String(contact.id);
 }
-
+ 
 // FIX 2: Build contact properties using only standard HubSpot fields.
 // "single_line_text__19" / "single_line_text__20" are auto-generated names that
 // only exist in the portal where they were created. Map to standard properties instead.
@@ -135,29 +135,29 @@ function buildContactProperties(input: HubspotLeadContext): Record<string, unkno
       "",
     phone: input.phone || "",
   };
-
+ 
   // Map to standard HubSpot contact properties
   if (input.subject) properties["subject"] = input.subject; // dedicated property for reporting
   if (input.intakeYear) properties["hs_persona"] = `Intake ${input.intakeYear}`; // persona tag
   if (input.message) properties["message"] = input.message; // standard "message" property
-
+ 
   if (input.lead_source) properties["lead_source"] = String(input.lead_source);
   if (input.job_role) properties["job_role"] = String(input.job_role);
-
+ 
   // Marketing tracking (stored as contact properties)
   const anyInput = input as any;
   if (anyInput.utm_source) properties["utm_source"] = String(anyInput.utm_source);
   if (anyInput.utm_medium) properties["utm_medium"] = String(anyInput.utm_medium);
   if (anyInput.utm_campaign) properties["utm_campaign"] = String(anyInput.utm_campaign);
   if (anyInput.landing_page) properties["landing_page"] = String(anyInput.landing_page);
-
+ 
   return properties;
 }
-
+ 
 async function upsertContactByEmail(input: HubspotLeadContext): Promise<string | null> {
   const existingId = await findContactIdByEmail(input.email);
   const properties = buildContactProperties(input);
-
+ 
   if (existingId) {
     await hubspotFetch(`/crm/v3/objects/contacts/${existingId}`, {
       method: "PATCH",
@@ -165,38 +165,38 @@ async function upsertContactByEmail(input: HubspotLeadContext): Promise<string |
     });
     return existingId;
   }
-
+ 
   const created = await hubspotFetch<{ id: string }>(`/crm/v3/objects/contacts`, {
     method: "POST",
     body: JSON.stringify({ properties }),
   });
-
+ 
   return created?.id ? String(created.id) : null;
 }
-
+ 
 type HubspotDealCreateResponse = { id: string };
-
+ 
 async function createDealForContact(params: {
   contactId: string;
   stageId: string | undefined;
   lead: HubspotLeadContext;
 }): Promise<string | null> {
   if (!params.stageId) return null;
-
+ 
   const dealProperties: Record<string, unknown> = {
     pipeline: getPipelineId(),
     dealstage: params.stageId,
     dealname: `${params.lead.fullName} - ${params.lead.subject || "Inquiry"}`,
   };
-
+ 
   const created = await hubspotFetch<HubspotDealCreateResponse>(
     `/crm/v3/objects/deals`,
     { method: "POST", body: JSON.stringify({ properties: dealProperties }) }
   );
-
+ 
   return created?.id ? String(created.id) : null;
 }
-
+ 
 async function associateDealToContact(dealId: string, contactId: string): Promise<void> {
   // Use CRM Associations v4 API — v3 PUT with empty body no longer works.
   // associationTypeId 3 = HUBSPOT_DEFINED Deal → Contact
@@ -210,20 +210,20 @@ async function associateDealToContact(dealId: string, contactId: string): Promis
     }
   );
 }
-
+ 
 function getStageIdForRouteKey(
   routeKey: "contact" | "premium-home-form" | "book-consultation" | "careers"
 ): string | undefined {
   return stageIdForContext({ routeKey });
 }
-
-
+ 
+ 
 function hubspotFail(message: string, err: unknown): never {
   safeLogHubspotError(err, message);
   if (err instanceof Error && err.message) throw new Error(err.message);
   throw new Error(message);
 }
-
+ 
 async function hubspotFetchOrThrow<T>(
   path: string,
   init: RequestInit,
@@ -231,7 +231,7 @@ async function hubspotFetchOrThrow<T>(
 ): Promise<T> {
   const HUBSPOT_PAT = getHubspotPat();
   if (!HUBSPOT_PAT) throw new Error("HUBSPOT_ACCESS_TOKEN is not configured");
-
+ 
   try {
     const res = await fetch(`${HUBSPOT_BASE}${path}`, {
       ...init,
@@ -241,7 +241,7 @@ async function hubspotFetchOrThrow<T>(
         "Content-Type": "application/json",
       },
     });
-
+ 
     if (!res.ok) {
       const text = await res.text().catch(() => "");
       let details = text;
@@ -253,14 +253,14 @@ async function hubspotFetchOrThrow<T>(
       }
       throw new Error(details || `${failMessage} (status ${res.status})`);
     }
-
+ 
     return (await res.json()) as T;
   } catch (err) {
     if (err instanceof Error) throw new Error(err.message || failMessage);
     throw new Error(failMessage);
   }
 }
-
+ 
 // FIX 3: "Contact already exists" means findContactIdByEmail returned null
 // (because the search sort was broken). After fixing sort direction (Fix 1) this
 // won't normally happen, but as a safety net: parse the existing ID from the
@@ -271,13 +271,13 @@ function extractExistingContactId(err: unknown): string | null {
   const match = err.message.match(/Existing ID[:\s]+(\d+)/i);
   return match?.[1] ?? null;
 }
-
+ 
 async function upsertContactByEmailOrThrow(input: HubspotLeadContext): Promise<string> {
   // FIX 1 applied: sort direction is now "DESCENDING" so this actually finds
   // existing contacts and takes the PATCH path instead of hitting POST conflicts.
   const existingId = await findContactIdByEmail(input.email);
   const properties = buildContactProperties(input);
-
+ 
   if (existingId) {
     await hubspotFetchOrThrow(
       `/crm/v3/objects/contacts/${existingId}`,
@@ -286,17 +286,17 @@ async function upsertContactByEmailOrThrow(input: HubspotLeadContext): Promise<s
     );
     return existingId;
   }
-
+ 
   try {
     const created = await hubspotFetchOrThrow<{ id: string }>(
       `/crm/v3/objects/contacts`,
       { method: "POST", body: JSON.stringify({ properties }) },
       "Failed to create HubSpot contact"
     );
-
+ 
     if (!created?.id) throw new Error("HubSpot contact creation returned no id");
     return String(created.id);
-
+ 
   } catch (err) {
     // FIX 3: If contact already exists (race condition or stale search result),
     // recover the existing ID from the error message and continue.
@@ -313,30 +313,30 @@ async function upsertContactByEmailOrThrow(input: HubspotLeadContext): Promise<s
     throw err;
   }
 }
-
+ 
 async function createDealForContactOrThrow(params: {
   contactId: string;
   stageId: string | undefined;
   lead: HubspotLeadContext;
 }): Promise<string> {
   if (!params.stageId) throw new Error("HubSpot deal stage is not configured");
-
+ 
   const dealProperties: Record<string, unknown> = {
     pipeline: getPipelineId(),
     dealstage: params.stageId,
     dealname: `${params.lead.fullName} - ${params.lead.subject || "Inquiry"}`,
   };
-
+ 
   const created = await hubspotFetchOrThrow<{ id: string }>(
     `/crm/v3/objects/deals`,
     { method: "POST", body: JSON.stringify({ properties: dealProperties }) },
     "Failed to create HubSpot deal"
   );
-
+ 
   if (!created?.id) throw new Error("HubSpot deal creation returned no id");
   return String(created.id);
 }
-
+ 
 async function associateDealToContactOrThrow(
   dealId: string,
   contactId: string
@@ -352,26 +352,26 @@ async function associateDealToContactOrThrow(
     "Failed to associate HubSpot deal with contact"
   );
 }
-
+ 
 export async function upsertContactAndCreateDeal(params: {
   routeKey: "contact" | "premium-home-form" | "book-consultation" | "careers";
   lead: HubspotLeadContext;
 }): Promise<void> {
-
+ 
   try {
     const contactId = await upsertContactByEmail(params.lead);
     if (!contactId) return;
-
+ 
     const stageId = getStageIdForRouteKey(params.routeKey);
     const dealId = await createDealForContact({ contactId, stageId, lead: params.lead });
     if (!dealId) return;
-
+ 
     await associateDealToContact(dealId, contactId);
   } catch (err) {
     safeLogHubspotError(err, "upsertContactAndCreateDeal failed");
   }
 }
-
+ 
 export async function upsertContactOnly(lead: HubspotLeadContext): Promise<void> {
   try {
     await upsertContactByEmail(lead);
@@ -379,16 +379,17 @@ export async function upsertContactOnly(lead: HubspotLeadContext): Promise<void>
     safeLogHubspotError(err, "upsertContactOnly failed");
   }
 }
-
+ 
 export async function submitContactUsToHubSpot(lead: HubspotLeadContext): Promise<void> {
   try {
     const contactId = await upsertContactByEmailOrThrow(lead);
-
+ 
     const stageId = getStageNewLeadId();
     const dealId = await createDealForContactOrThrow({ contactId, stageId, lead });
-
+ 
     await associateDealToContactOrThrow(dealId, contactId);
   } catch (err) {
-    hubspotFail("HubSpot Contact Us submission failed", err);
+    console.error("[HubSpot] submitContactUsToHubSpot failed (non-fatal):", err);
   }
 }
+ 
